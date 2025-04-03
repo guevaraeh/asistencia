@@ -9,7 +9,7 @@
             <div class="col-lg-12">
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h5 class="m-0 font-weight-bold text-primary">Editar profesor</h5>
+                  <h5 class="card-title text-primary">Editar profesor</h5>
                 </div>
                 <div class="card-body">
                   <form action="{{ route('teacher.update', $teacher->id) }}" method="POST">

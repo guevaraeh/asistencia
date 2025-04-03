@@ -9,7 +9,7 @@
             <div class="col-lg-12">
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h5 class="m-0 font-weight-bold text-primary">Editar Asistencia de {{ $assistance_teacher->teacher->lastname . ' ' . $assistance_teacher->teacher->name }}</h5>
+                  <h5 class="card-title text-primary">Editar Asistencia de {{ $assistance_teacher->teacher->lastname . ' ' . $assistance_teacher->teacher->name }}</h5>
                 </div>
                 <div class="card-body">
                   <form action="{{ route('assistance_teacher.update', $assistance_teacher->id) }}" method="POST" enctype="multipart/form-data">
@@ -18,7 +18,11 @@
 
                     <div class="mb-3">
                     <div class="form-group row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
+                          <label for="exampleFormControlInput1" class="form-label"><b>Apellidos y Nombres</b><font color="red">*</font></label>
+                          <input type="hidden" name="teacher-id" value="{{ $assistance_teacher->teacher->id }}"><br>{{ $assistance_teacher->teacher->lastname . ' ' . $assistance_teacher->teacher->name }}
+                        </div>
+                        <div class="col-sm-6">
                           <label for="exampleFormControlInput1" class="form-label"><b>Módulo Formativo</b><font color="red">*</font></label>
                           <select class="form-select" aria-label="Default select example" name="training-module" id="training-module" required>
                             <option value="Profesional/Especialidad" {{ $assistance_teacher->training_module == 'Profesional/Especialidad' ? 'selected' : '' }}>Profesional/Especialidad</option>

@@ -86,7 +86,6 @@ class AssistanceTeacherController extends Controller
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                               </div>
                                               <div class="modal-body">
-
                                                 <div class="table-responsive">
                                                     <table class="table table-hover">
                                                         <tbody>
@@ -138,6 +137,11 @@ class AssistanceTeacherController extends Controller
                                                         </tbody>
                                                     </table>
                                                 </div>
+                                              </div>
+                                              <div class="modal-footer">
+                                                    <a type="button" href="'.route('assistance_teacher.edit',$data->id).'" class="btn btn-info"><i class="bi-pencil"></i> Editar</a>
+                                                    <button type="button" class="btn btn-danger swalDefaultSuccess" form="deleteall" formaction="'.route('assistance_teacher.destroy',$data->id).'" value="'.date('Y-m-d h:i A', strtotime($data->created_at)).' de '.$data->teacher_name.'"><i class="bi-trash"></i> Eliminar</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                               </div>
                                             </div>
                                           </div>

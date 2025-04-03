@@ -10,7 +10,7 @@
                 @include('includes.alert')
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h5 class="m-0 font-weight-bold text-primary">Confirmar asistencia</h5>
+                  <h5 class="card-title text-primary">Confirmar asistencia</h5>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">

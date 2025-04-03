@@ -15,7 +15,7 @@
             <div class="col-lg-12">
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h5 class="m-0 font-weight-bold text-primary">Registro de asistencias de {{ $teacher->name . ' ' . $teacher->lastname }} <a class="btn btn-sm" href="{{ route('teacher.export', $teacher->id) }}" title="Exportar a Excel"><i class="bi-download"></i></a></h5>
+                  <h5 class="card-title text-primary">Registro de asistencias de {{ $teacher->name . ' ' . $teacher->lastname }} <a class="btn btn-sm" href="{{ route('teacher.export', $teacher->id) }}" title="Exportar a Excel"><i class="bi-download"></i></a></h5>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -31,8 +31,8 @@
                                             <th class="input-filter">Buscar</th>
                                             <th class="input-filter">Buscar</th>
                                             {{--<th></th>--}}
-                                            <th class="input-filter">Buscar</th>
-                                            <th class="input-filter">Buscar</th>
+                                            {{--<th class="input-filter">Buscar</th>--}}
+                                            {{--<th class="input-filter">Buscar</th>--}}
                                             {{--<th>Buscar</th>--}}
                                             <th></th>
                                         </tr>
@@ -48,8 +48,8 @@
                                             <th>Hora de ingreso</th>
                                             <th>Hora de salida</th>
                                             {{--<th>Tema de actividad de aprendizaje</th>--}}
-                                            <th>Lugar</th>
-                                            <th>Plataformas de apoyo</th>
+                                            {{--<th>Lugar</th>--}}
+                                            {{--<th>Plataformas de apoyo</th>--}}
                                             {{--<th>Observaciones</th>--}}
                                             <th>Acciones</th>
                                         </tr>
@@ -64,9 +64,9 @@
                                             <th>Hora de ingreso</th>
                                             <th>Hora de salida</th>
                                             {{--<th>Tema de actividad de aprendizaje</th>--}}
-                                            <th>Lugar</th>
-                                            <th>Plataformas de apoyo</th>
-                                            {{--<th>Observaciones</t>--}}
+                                            {{--<th>Lugar</th>--}}
+                                            {{--<th>Plataformas de apoyo</th>--}}
+                                            {{--<th>Observaciones</th>--}}
                                             <th></th>
                                         </tr>
                                     </tfoot>
@@ -91,10 +91,10 @@
                                     </tbody>
                                 </table>
                             </div>
-                            {{-- $assistances->links() --}}
                 </div>
               </div>
             </div>
+
 </div>
 @endsection
 
@@ -109,10 +109,12 @@ $( document ).ready(function() {
     });*/
 
     var dt = $('#datat').DataTable({
+        //searching : false,
+        //lengthChange: false,
+        pageLength: 20,
         language: {
             url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'
         },
-        pageLength: 25,
         processing: true,
         serverSide: true,
         ajax:"{{ route('teacher.show', $teacher->id) }}",
@@ -125,8 +127,8 @@ $( document ).ready(function() {
             {data:'checkin_time', name:'checkin_time'},
             {data:'departure_time', name:'departure_time'},
             //{data:'theme', name:'theme'},
-            {data:'place', name:'place'},
-            {data:'educational_platforms', name:'educational_platforms'},
+            //{data:'place', name:'place'},
+            //{data:'educational_platforms', name:'educational_platforms'},
             //{data:'remarks', name:'remarks'},
             {data:'action', name:'action'},
         ],
