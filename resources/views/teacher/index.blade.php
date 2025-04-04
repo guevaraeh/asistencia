@@ -9,7 +9,7 @@
             <div class="col-lg-12">
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h5 class="card-title text-primary">Lista de profesores</h5>
+                  <h5 class="card-title text-primary">Lista de Docentes</h5>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">

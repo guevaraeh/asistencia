@@ -11,11 +11,11 @@
                 <div class="card-header py-3">
                   <h5 class="card-title text-primary">Editar Asistencia de {{ $assistance_teacher->teacher->lastname . ' ' . $assistance_teacher->teacher->name }}</h5>
                 </div>
-                <div class="card-body">
-                  <form action="{{ route('assistance_teacher.update', $assistance_teacher->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('assistance_teacher.update', $assistance_teacher->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-
+                <div class="card-body">
+                  
                     <div class="mb-3">
                     <div class="form-group row">
                         <div class="col-sm-6">
@@ -156,13 +156,12 @@
                       <textarea class="form-control" id="remarks" name="remarks" >{{ $assistance_teacher->remarks }}</textarea>
                     </div>
 
-                    <div class="mb-3">
-                      <button type="submit" class="btn btn-primary">Guardar</button>
-                      <a href="{{ route('assistance_teacher') }}" class="btn btn-danger">Cancelar</a>
-                    </div>
-
-                  </form>
                 </div>
+                <div class="card-footer py-3">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <a href="{{ route('assistance_teacher') }}" class="btn btn-danger">Cancelar</a>
+                </div>
+                </form>
               </div>
             </div>
 </div>

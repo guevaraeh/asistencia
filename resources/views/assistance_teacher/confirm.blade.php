@@ -12,10 +12,10 @@
                 <div class="card-header py-3">
                   <h5 class="card-title text-primary">Confirmar asistencia</h5>
                 </div>
+                <form action="{{ route('assistance_teacher.store') }}" method="POST">
+                  @csrf
                 <div class="card-body">
                   <div class="table-responsive">
-                    <form action="{{ route('assistance_teacher.store') }}" method="POST">
-                    @csrf
                                 <table class="table table-hover">
                                     <tbody>
                                       <tr>
@@ -99,13 +99,13 @@
                                       </tr>
                                     </tbody>
                                 </table>
-                                <div class="mb-3">
-                                  <button type="submit" class="btn btn-primary">Confirmar</button>
-                                  <button type="button" onclick="history.back();" class="btn btn-danger">Atras</button>
-                                </div>
-                        </form>
                     </div>
                 </div>
+                <div class="card-footer py-3">
+                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                    <button type="button" onclick="history.back();" class="btn btn-danger">Atras</button>
+                </div>
+                </form>
               </div>
             </div>
 </div>

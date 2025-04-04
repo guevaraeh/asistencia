@@ -15,7 +15,7 @@
             <div class="col-lg-12">
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h5 class="card-title text-primary">Registro de asistencias de {{ $teacher->name . ' ' . $teacher->lastname }} <a class="btn btn-sm" href="{{ route('teacher.export', $teacher->id) }}" title="Exportar a Excel"><i class="bi-download"></i></a></h5>
+                  <h5 class="card-title text-primary">Registro de asistencias de {{ $teacher->lastname . ' ' . $teacher->name }} <a class="btn btn-sm" href="{{ route('teacher.export', $teacher->id) }}" title="Exportar a Excel"><i class="bi-download"></i></a></h5>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">

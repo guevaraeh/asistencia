@@ -27,6 +27,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/teacher/{teacher}/update', [TeacherController::class, 'update'])->name('teacher.update');
     Route::get('/teacher/{teacher}', [TeacherController::class, 'show'])->name('teacher.show');
     Route::get('/assistanceteacher/{teacher}/create', [TeacherController::class, 'create_assistance'])->name('teacher.create_assistance');
+    Route::get('/teacher-submitted/{teacher}', [TeacherController::class, 'submitted'])->name('teacher.submitted');
     Route::delete('/teacher/{teacher}/destroy', [TeacherController::class, 'destroy'])->name('teacher.destroy');
 
     Route::get('/assistanceteacher', [AssistanceTeacherController::class, 'index'])->name('assistance_teacher');

@@ -225,8 +225,13 @@ class TeacherController extends Controller
 
     public function create_assistance(Teacher $teacher)
     {
-        $teachers = DB::table('teachers')->orderBy('lastname','asc')->get();
+        $teachers = Teacher::orderBy('lastname','asc')->get();
         return view('assistance_teacher.create',['teachers' => $teachers, 'periods' => Period::get(), 'tch' => $teacher]);
+    }
+
+    public function submitted(Teacher $teacher)
+    {
+        return view('teacher.submitted',['teacher' => $teacher]);
     }
 
     public function export(Teacher $teacher) 

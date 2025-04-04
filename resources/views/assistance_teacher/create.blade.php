@@ -11,9 +11,9 @@
                 <div class="card-header py-3">
                   <h5 class="card-title text-primary">Crear Asistencia</h5>
                 </div>
-                <div class="card-body">
-                  <form action="{{ route('assistance_teacher.confirm') }}" method="POST">
+                <form action="{{ route('assistance_teacher.confirm') }}" method="POST">
                     @csrf
+                <div class="card-body">
                     <div class="mb-3">
                     <div class="form-group row">
                         <div class="col-sm-6">
@@ -155,16 +155,15 @@
                       <label for="exampleFormControlInput1" class="form-label"><b>Observaciones</b></label>
                       <textarea class="form-control" id="remarks" name="remarks"></textarea>
                     </div>
-
-                    <div class="mb-3">
-                      <button type="submit" class="btn btn-primary">Guardar</button>
-                      @can('manage-assistance')
-                      <a href="{{ route('assistance_teacher') }}" class="btn btn-danger">Cancelar</a>
-                      @endcan
-                    </div>
-
-                  </form>
+                  
                 </div>
+                <div class="card-footer py-3">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    @can('manage-assistance')
+                    <a href="{{ route('assistance_teacher') }}" class="btn btn-danger">Cancelar</a>
+                    @endcan
+                </div>
+                </form>
               </div>
             </div>
 </div>

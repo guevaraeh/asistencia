@@ -229,7 +229,7 @@ class AssistanceTeacherController extends Controller
         $assistanceTeacher->save();
 
         if (!Gate::allows('manage-assistance')) {
-            return view('dashboard');
+            return redirect(route('teacher.submitted', $assistanceTeacher->teacher_id));
         }
 
         return redirect(route('assistance_teacher'))->with('success', 'Asistencia registrada');
