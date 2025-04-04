@@ -304,6 +304,33 @@ class AssistanceTeacherController extends Controller
         return Excel::download(new AssistanceTeacherExport, 'Asistencias_'.date('YmdHi', time()).'.xlsx');
     }
 
+    public function export_by_range($ini, $end)
+    {
+        if(strtotime($ini) && strtotime($end))
+        {
+            //return Excel::download(new AssistanceTeacherExport, 'Asistencias_'.date('YmdHi', time()).'.xlsx');
+            return Excel::download(new AssistanceTeacherExport($ini, $end), 'Asistencias_'.date('YmdHi', time()).'.xlsx');
+        }
+    }
+
+    public function export_ajax(Request $request) 
+    {
+        if (! Gate::allows('manage-assistance')) {
+            abort(403);
+        }
+
+        if($request->ajax())
+        {
+            //dd($request);
+            //return response()->json($request->input('ini') . '/' . $request->input('end'));
+            //return response()->json(route('assistance_teacher'));
+            //return response()->json(route('assistance_teacher.export_by_range',[$request->input('ini'), $request->input('end')]));
+            return redirect()->route('assistance_teacher.export_by_range',[$request->input('ini'), $request->input('end')]);
+        }
+
+        //return Excel::download(new AssistanceTeacherExport, 'Asistencias_'.date('YmdHi', time()).'.xlsx');
+    }
+
     /**
      * Remove the specified resource from storage.
      */

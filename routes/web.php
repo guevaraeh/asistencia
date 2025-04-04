@@ -41,6 +41,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/assistanceteacher/destroymany', [AssistanceTeacherController::class, 'destroy_many'])->name('assistance_teacher.destroy_many');
 
     Route::get('/assistances-export', [AssistanceTeacherController::class, 'export'])->name('assistance_teacher.export');
+    Route::get('/assistances-export-by-range/{ini?}/{end?}', [AssistanceTeacherController::class, 'export_by_range'])->name('assistance_teacher.export_by_range');
+    Route::post('/assistances-export-ajax', [AssistanceTeacherController::class, 'export_ajax'])->name('assistance_teacher.export_ajax');
 
     Route::get('/assistances-export/{teacher}', [TeacherController::class, 'export'])->name('teacher.export');
 

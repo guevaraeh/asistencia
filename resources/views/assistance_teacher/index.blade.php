@@ -18,6 +18,19 @@
                   <h5 class="card-title text-primary">Lista de Asistencias <a class="btn btn-sm" href="{{ route('assistance_teacher.export') }}" title="Exportar a Excel"><i class="bi-download"></i></a></h5>
                 </div>
                 <div class="card-body">
+
+                    <div class="col-sm-6">
+                        <label for="exampleFormControlInput1" class="form-label">Rango</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="init-date" value="{{ date('Y-m-d', strtotime('-1 days')) }}" readonly>
+                            <input type="text" class="form-control" id="end-date" value="{{ date('Y-m-d', time()) }}" readonly>
+                            <!--<button type="button" id="export" class="btn btn-primary">Generar</button>-->
+                            <a href="#" id="ranks" class="btn btn-primary">Generador</a>
+                        </div>
+                    </div>
+
+                    <hr>
+
                   <div class="table-responsive">
                                 <table class="table table-hover" id="datat">
                                     <thead>
@@ -89,6 +102,8 @@
 <script>
 $( document ).ready(function() {
 
+/****************************************************************************************************************/
+
     var dt = $('#datat').DataTable({
         //searching : false,
         //lengthChange: false,
@@ -137,34 +152,6 @@ $( document ).ready(function() {
                         }
                     });
                 });
-
-            /*this.api()
-                .columns([2,3,4])
-                .every(function () {
-                    let column = this;
-     
-                    // Create select element
-                    let select = document.createElement('select');
-                    select.setAttribute('class', 'form-select');
-                    select.add(new Option(''));
-                    column.footer().replaceChildren(select);
-                    
-                    // Add list of options
-                    column
-                        .data()
-                        .unique()
-                        .sort()
-                        .each(function (d, j) {
-                            select.add(new Option(d));
-                        });
-
-                    // Apply listener for user change in value
-                    select.addEventListener('change', function () {
-                        column
-                            .search(select.value, {exact: true})
-                            .draw();
-                    });
-                });*/
 
             this.api()
                 .columns('.select-module')
@@ -262,7 +249,7 @@ $( document ).ready(function() {
 
 
     });
-    
+
     /*new tempusDominus.TempusDominus(document.getElementById("datepicker"), {
             useCurrent: false,
             display: {
@@ -294,15 +281,120 @@ $( document ).ready(function() {
             },
         });*/
 
-    /*$('.swalDefaultSuccess').click(function(){
-        Swal.fire({
-            title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
-            showDenyButton: true,
-            showCancelButton: true,
-            confirmButtonText: "Save",
-            denyButtonText: `Don't save`
-        })
+
+/******************************************************************************************************************************/
+    
+    var route = "{{ route('assistance_teacher.export_by_range') }}"+"/";
+    $("#ranks").attr("href", route+$('#init-date').val()+"/"+$('#end-date').val());
+
+    const linkedPicker1Element = document.getElementById("init-date");
+    const linked1 = new tempusDominus.TempusDominus(linkedPicker1Element, {
+      display: {
+            icons: {
+              //time: 'bi bi-clock',
+              date: 'bi bi-calendar',
+              up: 'bi bi-arrow-up',
+              down: 'bi bi-arrow-down',
+              previous: 'bi bi-chevron-left',
+              next: 'bi bi-chevron-right',
+              today: 'bi bi-calendar-check',
+              clear: 'bi bi-trash',
+              close: 'bi bi-x',
+            },
+        },
+      localization: {
+            locale: 'en',
+            format: "yyyy-MM-dd"
+        },
+      restrictions: {
+            maxDate: document.getElementById("end-date").value,
+        }
+    });
+    const linked2 = new tempusDominus.TempusDominus(document.getElementById("end-date"), {
+        useCurrent: false,
+        display: {
+            icons: {
+              //time: 'bi bi-clock',
+              date: 'bi bi-calendar',
+              up: 'bi bi-arrow-up',
+              down: 'bi bi-arrow-down',
+              previous: 'bi bi-chevron-left',
+              next: 'bi bi-chevron-right',
+              today: 'bi bi-calendar-check',
+              clear: 'bi bi-trash',
+              close: 'bi bi-x',
+            },
+        },
+        localization: {
+            locale: 'en',
+            format: "yyyy-MM-dd"
+        },
+        restrictions: {
+            minDate: document.getElementById("init-date").value,
+        }
+    });
+
+    linkedPicker1Element.addEventListener(tempusDominus.Namespace.events.change, (e) => {
+        linked2.updateOptions({
+            restrictions: {
+            minDate: e.detail.date,
+            },
+        });
+        $("#ranks").attr("href", route+$('#init-date').val()+"/"+$('#end-date').val());
+    });
+
+    const subscription = linked2.subscribe(tempusDominus.Namespace.events.change, (e) => {
+        linked1.updateOptions({
+            restrictions: {
+            maxDate: e.date,
+            },
+        });
+        $("#ranks").attr("href", route+$('#init-date').val()+"/"+$('#end-date').val());
+    });
+
+
+    /*$.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
     });*/
+    /*$.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: url,
+        type: "DELETE",
+        data: data,
+        success: function(response) {
+            let successHtml = '<div class="alert alert-success" role="alert"><b>Project Deleted Successfully</b></div>';
+            $("#alert-div").html(successHtml);
+            showAllProjects();
+        },
+        error: function(response) {
+            console.log(response.responseJSON)
+        }
+    });*/
+    $("#export").click(function(){
+        //alert("Presionado");
+        $.ajax({
+            method: "POST",
+            url: "{{ route('assistance_teacher.export_ajax') }}", 
+            data: {
+                ini: $('#init-date').val(),
+                end: $('#end-date').val(),
+                _token: "{{ csrf_token() }}"
+            },
+            success: function(result){
+                //$("#div1").html(result);
+                console.log($('#init-date').val());
+                console.log($('#end-date').val());
+                //console.log(result);
+            }
+        });
+    });
+
+
+/*****************************************************************************************************************************************/
 
     @if(Session::has('success'))
     toastr.success('<strong>¡Exito!</strong><br>'+'{{ session("success") }}');

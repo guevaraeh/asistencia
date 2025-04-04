@@ -266,6 +266,7 @@ $( document ).ready(function() {
     *************************************************/
 
 
+    /*********************************************************************************************************/
 
     //https://preview.keenthemes.com/html/start-html-pro/docs/forms/tempus-dominus-datepicker
     const linkedPicker1Element = document.getElementById("checkin-time");
@@ -321,7 +322,6 @@ $( document ).ready(function() {
         }
     });
 
-    //using event listeners
     linkedPicker1Element.addEventListener(tempusDominus.Namespace.events.change, (e) => {
         linked2.updateOptions({
             restrictions: {
@@ -330,7 +330,6 @@ $( document ).ready(function() {
         });
     });
 
-    //using subscribe method
     const subscription = linked2.subscribe(tempusDominus.Namespace.events.change, (e) => {
         linked1.updateOptions({
             restrictions: {
@@ -339,7 +338,7 @@ $( document ).ready(function() {
         });
     });
 
-
+    /************************************************************************************************/
 
 
     $('.selectto').select2({
