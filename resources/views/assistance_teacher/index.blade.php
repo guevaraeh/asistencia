@@ -19,68 +19,137 @@
                 </div>
                 <div class="card-body">
 
-                    <div class="col-sm-6">
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Rango</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="init-date" value="{{ date('Y-m-d', strtotime('-1 days')) }}" readonly>
-                                <input type="text" class="form-control" id="end-date" value="{{ date('Y-m-d', time()) }}" readonly>
-                                <!--<button type="button" id="export" class="btn btn-primary">Generar</button>-->
-                                <a href="#" id="ranks" class="btn btn-primary">.xlsx</a>
+                    <nav>
+                        <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Busqueda</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Exportar</button>
+                        </div>
+                    </nav>
+                    <div class="tab-content p-3 border bg-light" id="nav-tabContent">
+                        <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            
+                            <div class="col-sm-8">
+                                <div class="form-group row mb-3">
+                                    <div class="col-sm-3">
+                                        <label class="form-label"><b>Apellidos y Nombres</b></label>
+                                        <input type="text" class="form-control" id="name-filter">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="form-label"><b>Módulo Formativo</b></label>
+                                        <select class="form-select" id="module-filter">
+                                            <option></option>
+                                            <option>Profesional/Especialidad</option>
+                                            <option>Transversal/Empleabilidad</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="form-label"><b>Período Académico</b></label>
+                                        <select class="form-select" id="period-filter">
+                                            <option></option>
+                                            <option>Segundo</option>
+                                            <option>Cuarto</option>
+                                            <option>Sexto</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="form-label"><b>Turno/Sección</b></label>
+                                        <select class="form-select" id="turn-filter">
+                                            <option></option>
+                                            <option>Diurno</option>
+                                            <option>Nocturno</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row mb-3">
+                                    <div class="col-sm-4">
+                                        <label class="form-label"><b>Fecha de subida</b></label>
+                                        <input type="text" class="form-control date-filter" id="uploaded-filter">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="form-label"><b>Hora de ingreso (fecha)</b></label>
+                                        <input type="text" class="form-control date-filter" id="checkin-filter">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="form-label"><b>Hora de salida (fecha)</b></label>
+                                        <input type="text" class="form-control date-filter" id="departure-filter">
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
 
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Por mes</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="set-month" value="{{ date('Y-m', time()) }}" readonly>
-                                <a href="#" id="months" class="btn btn-primary">.xlsx</a>
-                            </div>
-                        </div>
 
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Por año</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="set-year" value="{{ date('Y', time()) }}" readonly>
-                                <a href="#" id="years" class="btn btn-primary">.xlsx</a>
-                            </div>
-                        </div>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            
+                            <div class="col-sm-4">
+                                <div class="form-group row mb-3">
+                                    <div class="col-sm-3 col-form-label">
+                                        <input class="form-check-input" type="radio" name="export-option" id="by-rank" checked>
+                                        <label for="exampleFormControlInput1" class="form-check-label"><b>Por rango</b></label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div class="input-group">
+                                            <a href="#" id="ranks" class="btn btn-primary">.xlsx</a>
+                                            <input type="text" class="form-control" id="init-date" value="{{ date('Y-m-d', strtotime('-1 days')) }}" readonly>
+                                            <input type="text" class="form-control" id="end-date" value="{{ date('Y-m-d', time()) }}" readonly>
+                                            <!--<button type="button" id="export" class="btn btn-primary">Generar</button>-->
+                                        </div>
+                                    </div>
+                                </div>
 
+                                <div class="form-group row mb-3">
+                                    <div class="col-sm-3 col-form-label">
+                                        <input class="form-check-input" type="radio" name="export-option" id="by-month" >
+                                        <label for="exampleFormControlInput1" class="form-check-label"><b>Por mes</b></label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div class="input-group">
+                                            <a href="#" id="months" class="btn btn-primary disabled">.xlsx</a>
+                                            <input type="text" class="form-control" id="set-month" value="{{ date('Y-m', time()) }}" readonly disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row mb-3">
+                                    <div class="col-sm-3 col-form-label">
+                                        <input class="form-check-input" type="radio" name="export-option" id="by-year" >
+                                        <label for="exampleFormControlInput1" class="form-check-label"><b>Por año</b></label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div class="input-group">
+                                            <a href="#" id="years" class="btn btn-primary disabled">.xlsx</a>
+                                            <input type="text" class="form-control" id="set-year" value="{{ date('Y', time()) }}" readonly disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
                     </div>
+
+
+
+                    <!--<div class="col-sm-4">
+                        <input type="text" class="form-control" id="upload-date">
+                    </div>-->
 
                     <hr>
 
                   <div class="table-responsive">
                                 <table class="table table-hover" id="datat">
-                                    <thead>
-                                        <tr>
-                                            <!--<th></th>-->
-                                            <th class="input-filter input-date" id="datepicker">Buscar</th>
-                                            <th class="input-filter">Buscar</th>
-                                            <th class="select-module"></th>
-                                            <th class="select-period"></th>
-                                            <th class="select-turn"></th>
-                                            {{--<th></th>--}}
-                                            <th class="input-filter">Buscar</th>
-                                            <th class="input-filter">Buscar</th>
-                                            {{--<th></th>--}}
-                                            {{--<th class="input-filter">Buscar</th>--}}
-                                            {{--<th class="input-filter">Buscar</th>--}}
-                                            {{--<th>Buscar</th>--}}
-                                            <th></th>
-                                        </tr>
-                                    </thead>
                                     <thead class="table-light">
                                         <tr>
                                             <!--<th></th>-->
-                                            <th>Fecha de subida</th>
-                                            <th>Apellidos y Nombres</th>
-                                            <th>Módulo Formativo</th>
-                                            <th>Período Académico</th>
-                                            <th>Turno/Sección</th>
+                                            <th class="input-filter uploaded-col">Fecha de subida</th>
+                                            <th class="input-filter name-col">Apellidos y Nombres</th>
+                                            <th class="select-module">Módulo Formativo</th>
+                                            <th class="select-period">Período Académico</th>
+                                            <th class="select-turn">Turno/Sección</th>
                                             {{--<th>Unidad Didáctica</th>--}}
-                                            <th>Hora de ingreso</th>
-                                            <th>Hora de salida</th>
+                                            <th class="input-filter checkin-col">Hora de ingreso</th>
+                                            <th class="input-filter departure-col">Hora de salida</th>
                                             {{--<th>Tema de actividad de aprendizaje</th>--}}
                                             {{--<th>Lugar</th>--}}
                                             {{--<th>Plataformas de apoyo</th>--}}
@@ -150,7 +219,114 @@ $( document ).ready(function() {
             {data:'action', name:'action'},
         ],
         initComplete: function () {
+            /*this.api()
+                .columns('.filter-date')
+                .every(function (index) {
+                    let column = this;
+                    let title = column.header().textContent;
+     
+                    // Create input element
+                    let input = document.getElementById('upload-date');
+                    input.placeholder = title;
+                    
+                    input.setAttribute('data-dt-column', index);
+                    //column.footer().replaceChildren(input);
+                    //column.header().replaceChildren(input);
+     
+                    // Event listener for user input
+                    input.addEventListener('change', () => {
+                        if (column.search() !== this.value) {
+                            column.search(input.value).draw();
+                        }
+                    });
+                });*/
+
             this.api()
+                .columns('.uploaded-col')
+                .every(function (index) {
+                    let column = this;
+                    let title = column.header().textContent;
+     
+                    let input = document.getElementById('uploaded-filter');
+                    input.placeholder = title;
+                    input.setAttribute('data-dt-column', index);
+
+                    input.addEventListener('change', () => {
+                        if (column.search() !== this.value) {
+                            column.search(input.value).draw();
+                        }
+                    });
+                });
+
+            this.api()
+                .columns('.name-col')
+                .every(function (index) {
+                    let column = this;
+                    let title = column.header().textContent;
+     
+                    let input = document.getElementById('name-filter');
+                    input.placeholder = title;
+                    input.setAttribute('data-dt-column', index);
+
+                    input.addEventListener('keyup', () => {
+                        if (column.search() !== this.value) {
+                            column.search(input.value).draw();
+                        }
+                    });
+                });
+
+            this.api()
+                .columns('.select-module')
+                .every(function (index) {
+                    let column = this;
+                    let title = column.header().textContent;
+     
+                    let input = document.getElementById('module-filter');
+                    input.placeholder = title;
+                    input.setAttribute('data-dt-column', index);
+
+                    input.addEventListener('change', () => {
+                        if (column.search() !== this.value) {
+                            column.search(input.value).draw();
+                        }
+                    });
+                });
+
+            this.api()
+                .columns('.select-period')
+                .every(function (index) {
+                    let column = this;
+                    let title = column.header().textContent;
+     
+                    let input = document.getElementById('period-filter');
+                    input.placeholder = title;
+                    input.setAttribute('data-dt-column', index);
+
+                    input.addEventListener('change', () => {
+                        if (column.search() !== this.value) {
+                            column.search(input.value).draw();
+                        }
+                    });
+                });
+
+            this.api()
+                .columns('.select-turn')
+                .every(function (index) {
+                    let column = this;
+                    let title = column.header().textContent;
+     
+                    let input = document.getElementById('turn-filter');
+                    input.placeholder = title;
+                    input.setAttribute('data-dt-column', index);
+
+                    input.addEventListener('change', () => {
+                        if (column.search() !== this.value) {
+                            column.search(input.value).draw();
+                        }
+                    });
+                });
+
+            /*this.api()
                 .columns('.input-filter')
                 .every(function () {
                     let column = this;
@@ -243,7 +419,7 @@ $( document ).ready(function() {
                             .search(select.value, {exact: true})
                             .draw();
                     });
-                });
+                });*/
 
         }
 
@@ -270,7 +446,7 @@ $( document ).ready(function() {
 
     });
 
-    /*new tempusDominus.TempusDominus(document.getElementById("datepicker"), {
+    new tempusDominus.TempusDominus(document.getElementById("uploaded-filter"), {
             useCurrent: false,
             display: {
                 icons: {
@@ -299,7 +475,7 @@ $( document ).ready(function() {
                 locale: 'en',
                 format: "yyyy-MM-dd"
             },
-        });*/
+        });
 
 
 /******************************************************************************************************************************/
@@ -496,6 +672,43 @@ $( document ).ready(function() {
 
     const subyear = year.subscribe(tempusDominus.Namespace.events.change, (e) => {
         $("#years").attr("href", route_date+$('#set-year').val());
+    });
+
+    $('input[name="export-option"]').change(function(){
+        //alert( "otro" );
+        if($('#by-rank').is(':checked'))
+        {
+            $('#init-date').prop('disabled', false);
+            $('#end-date').prop('disabled', false);
+            $('#set-month').prop('disabled', true);
+            $('#set-year').prop('disabled', true);
+
+            $("#ranks").removeClass("disabled");
+            $("#months").addClass("disabled");
+            $("#years").addClass("disabled");
+        }
+        if($('#by-month').is(':checked'))
+        {
+            $('#init-date').prop('disabled', true);
+            $('#end-date').prop('disabled', true);
+            $('#set-month').prop('disabled', false);
+            $('#set-year').prop('disabled', true);
+
+            $("#ranks").addClass("disabled");
+            $("#months").removeClass("disabled");
+            $("#years").addClass("disabled");
+        }
+        if($('#by-year').is(':checked'))
+        {
+            $('#init-date').prop('disabled', true);
+            $('#end-date').prop('disabled', true);
+            $('#set-month').prop('disabled', true);
+            $('#set-year').prop('disabled', false);
+
+            $("#ranks").addClass("disabled");
+            $("#months").addClass("disabled");
+            $("#years").removeClass("disabled");
+        }
     });
 
 

@@ -93,7 +93,7 @@ class AssistanceTeacherController extends Controller
                                                     <table class="table table-hover">
                                                         <tbody>
                                                             <tr>
-                                                                <th><small>Apellidos y Nombres</small></th>
+                                                                <th class="col-4"><small>Apellidos y Nombres</small></th>
                                                                 <td><small>'.$data->teacher->lastname.' '.$data->teacher->name.'</small></td>
                                                             </tr>
                                                             <tr>
