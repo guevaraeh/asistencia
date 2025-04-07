@@ -8,26 +8,25 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class AssistanceTeacherExport implements FromCollection, WithHeadings
+class AssistanceFilterExport implements FromCollection, WithHeadings
 {
     /**
     * @return \Illuminate\Support\Collection
     */
 
-    protected $ini;
-    protected $end;
+    protected $year_month;
 
-    public function __construct($ini = null, $end = null) 
+    public function __construct($year_month) 
     {
-        $this->ini = $ini;
-        $this->end = $end;
+        $this->year_month = $year_month;
     }
 
     public function collection()
     {
-        if($this->ini == null && $this->end == null)
+        $ym = explode('-', $this->year_month);
+        if(count($ym) > 1)
         {
-            $assistance_teachers = AssistanceTeacher::select([
+           $assistance_teachers = AssistanceTeacher::select([
                 DB::raw("DATE_FORMAT(assistance_teachers.created_at, '%Y/%m/%d %r')"),
                 DB::raw("CONCAT(teachers.lastname,' ',teachers.name) as teacher_name"),
                 'assistance_teachers.training_module',
@@ -43,13 +42,13 @@ class AssistanceTeacherExport implements FromCollection, WithHeadings
                 ]) //periods.name
             ->join('teachers', 'assistance_teachers.teacher_id', '=', 'teachers.id')
             //->join('periods', 'assistance_teachers.period_id', '=', 'period.id')
+            ->whereRaw("year(assistance_teachers.created_at) = ? ", [$ym[0]])
+            ->whereRaw("month(assistance_teachers.created_at) = ? ", [$ym[1]])
             ->orderBy('assistance_teachers.id', 'desc')
             ->get();
             return $assistance_teachers;
         }
-        else{
-            /*SELECT created_at FROM assistance_teachers WHERE created_at BETWEEN '2025-04-01 00:00:00' AND '2025-04-03 11:59:59' ORDER BY created_at DESC*/
-            
+        else{            
             $assistance_teachers = AssistanceTeacher::select([
                 DB::raw("DATE_FORMAT(assistance_teachers.created_at, '%Y/%m/%d %r')"),
                 DB::raw("CONCAT(teachers.lastname,' ',teachers.name) as teacher_name"),
@@ -66,12 +65,7 @@ class AssistanceTeacherExport implements FromCollection, WithHeadings
                 ]) //periods.name
             ->join('teachers', 'assistance_teachers.teacher_id', '=', 'teachers.id')
             //->join('periods', 'assistance_teachers.period_id', '=', 'period.id')
-            //->where('assistance_teachers.created_at', '>=' , $init_date)
-            //->where('assistance_teachers.created_at', '<=' , $end_date)
-            //->where(DB::raw("date(assistance_teachers.created_at) BETWEEN ".$this->ini." AND ".$this->end))
-            //->whereRaw("date(assistance_teachers.created_at) BETWEEN ? AND ? ", [$this->ini, $this->end])
-            ->whereRaw("date(assistance_teachers.created_at) >= ? ", [$this->ini])
-            ->whereRaw("date(assistance_teachers.created_at) <= ? ", [$this->end])
+            ->whereRaw("year(assistance_teachers.created_at) = ? ", [$ym[0]])
             ->orderBy('assistance_teachers.id', 'desc')
             ->get();
             //dd($assistance_teachers);

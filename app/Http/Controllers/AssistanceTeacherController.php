@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreAssistanceTeacherRequest;
 use App\Http\Requests\UpdateAssistanceTeacherRequest;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\AssistanceFilterExport;
 use App\Exports\AssistanceTeacherExport;
 use DataTables;
 use Illuminate\Support\Facades\Gate;
@@ -25,6 +26,8 @@ class AssistanceTeacherController extends Controller
         if (!Gate::allows('manage-assistance')) {
             abort(403);
         }
+
+        //dd(explode('-',"2025"));
 
         if($request->ajax())
         {
@@ -308,10 +311,15 @@ class AssistanceTeacherController extends Controller
     {
         if(strtotime($ini) && strtotime($end))
         {
-            //return Excel::download(new AssistanceTeacherExport, 'Asistencias_'.date('YmdHi', time()).'.xlsx');
             return Excel::download(new AssistanceTeacherExport($ini, $end), 'Asistencias_'.date('YmdHi', time()).'.xlsx');
         }
     }
+
+    public function export_by_date($date)
+    {
+        return Excel::download(new AssistanceFilterExport($date), 'Asistencias_'.date('YmdHi', time()).'.xlsx');
+    }
+
 
     public function export_ajax(Request $request) 
     {

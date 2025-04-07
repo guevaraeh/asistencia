@@ -20,13 +20,32 @@
                 <div class="card-body">
 
                     <div class="col-sm-6">
-                        <label for="exampleFormControlInput1" class="form-label">Rango</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="init-date" value="{{ date('Y-m-d', strtotime('-1 days')) }}" readonly>
-                            <input type="text" class="form-control" id="end-date" value="{{ date('Y-m-d', time()) }}" readonly>
-                            <!--<button type="button" id="export" class="btn btn-primary">Generar</button>-->
-                            <a href="#" id="ranks" class="btn btn-primary">Generador</a>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Rango</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="init-date" value="{{ date('Y-m-d', strtotime('-1 days')) }}" readonly>
+                                <input type="text" class="form-control" id="end-date" value="{{ date('Y-m-d', time()) }}" readonly>
+                                <!--<button type="button" id="export" class="btn btn-primary">Generar</button>-->
+                                <a href="#" id="ranks" class="btn btn-primary">.xlsx</a>
+                            </div>
                         </div>
+
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Por mes</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="set-month" value="{{ date('Y-m', time()) }}" readonly>
+                                <a href="#" id="months" class="btn btn-primary">.xlsx</a>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Por año</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="set-year" value="{{ date('Y', time()) }}" readonly>
+                                <a href="#" id="years" class="btn btn-primary">.xlsx</a>
+                            </div>
+                        </div>
+
                     </div>
 
                     <hr>
@@ -230,6 +249,8 @@ $( document ).ready(function() {
 
     });
 
+    //$(".dt-search").html('');
+
     dt.on('draw', function() {
         $('.swalDefaultSuccess').click(function(){
             Swal.fire({
@@ -246,7 +267,6 @@ $( document ).ready(function() {
                 }
             })
         });
-
 
     });
 
@@ -287,6 +307,10 @@ $( document ).ready(function() {
     var route = "{{ route('assistance_teacher.export_by_range') }}"+"/";
     $("#ranks").attr("href", route+$('#init-date').val()+"/"+$('#end-date').val());
 
+    var route_date = "{{ route('assistance_teacher.export_by_date') }}"+"/";
+    $("#months").attr("href", route_date+$('#set-month').val());
+    $("#years").attr("href", route_date+$('#set-year').val());
+
     const linkedPicker1Element = document.getElementById("init-date");
     const linked1 = new tempusDominus.TempusDominus(linkedPicker1Element, {
       display: {
@@ -300,6 +324,12 @@ $( document ).ready(function() {
               today: 'bi bi-calendar-check',
               clear: 'bi bi-trash',
               close: 'bi bi-x',
+            },
+            components: {
+                clock: false,
+                hours: false,
+                minutes: false,
+                seconds: false,
             },
         },
       localization: {
@@ -323,6 +353,12 @@ $( document ).ready(function() {
               today: 'bi bi-calendar-check',
               clear: 'bi bi-trash',
               close: 'bi bi-x',
+            },
+            components: {
+                clock: false,
+                hours: false,
+                minutes: false,
+                seconds: false,
             },
         },
         localization: {
@@ -391,6 +427,75 @@ $( document ).ready(function() {
                 //console.log(result);
             }
         });
+    });
+
+
+    const month = new tempusDominus.TempusDominus(document.getElementById("set-month"), {
+        useCurrent: false,
+        display: {
+            icons: {
+              //time: 'bi bi-clock',
+              date: 'bi bi-calendar',
+              up: 'bi bi-arrow-up',
+              down: 'bi bi-arrow-down',
+              previous: 'bi bi-chevron-left',
+              next: 'bi bi-chevron-right',
+              today: 'bi bi-calendar-check',
+              clear: 'bi bi-trash',
+              close: 'bi bi-x',
+            },
+            viewMode: 'months',
+            components: {
+                date: false,
+                //month: false,
+                clock: false,
+                hours: false,
+                minutes: false,
+                seconds: false,
+            }
+        },
+        localization: {
+            locale: 'en',
+            format: "yyyy-MM"
+        },
+    });
+
+    const year = new tempusDominus.TempusDominus(document.getElementById("set-year"), {
+        useCurrent: false,
+        display: {
+            icons: {
+              //time: 'bi bi-clock',
+              date: 'bi bi-calendar',
+              up: 'bi bi-arrow-up',
+              down: 'bi bi-arrow-down',
+              previous: 'bi bi-chevron-left',
+              next: 'bi bi-chevron-right',
+              today: 'bi bi-calendar-check',
+              clear: 'bi bi-trash',
+              close: 'bi bi-x',
+            },
+            viewMode: 'years',
+            components: {
+                date: false,
+                month: false,
+                clock: false,
+                hours: false,
+                minutes: false,
+                seconds: false,
+            }
+        },
+        localization: {
+            locale: 'en',
+            format: "yyyy"
+        },
+    });
+
+    const submonth = month.subscribe(tempusDominus.Namespace.events.change, (e) => {
+        $("#months").attr("href", route_date+$('#set-month').val());
+    });
+
+    const subyear = year.subscribe(tempusDominus.Namespace.events.change, (e) => {
+        $("#years").attr("href", route_date+$('#set-year').val());
     });
 
 

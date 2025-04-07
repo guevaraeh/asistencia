@@ -42,6 +42,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/assistances-export', [AssistanceTeacherController::class, 'export'])->name('assistance_teacher.export');
     Route::get('/assistances-export-by-range/{ini?}/{end?}', [AssistanceTeacherController::class, 'export_by_range'])->name('assistance_teacher.export_by_range');
+    Route::get('/assistances-export-by-date/{date?}', [AssistanceTeacherController::class, 'export_by_date'])->name('assistance_teacher.export_by_date');
     Route::post('/assistances-export-ajax', [AssistanceTeacherController::class, 'export_ajax'])->name('assistance_teacher.export_ajax');
 
     Route::get('/assistances-export/{teacher}', [TeacherController::class, 'export'])->name('teacher.export');
