@@ -28,6 +28,7 @@ class AssistanceTeacherController extends Controller
         }
 
         //dd(explode('-',"2025"));
+        //SELECT date_format(checkin_time, '%Y-%m-%d %r') as dt FROM assistance_teachers WHERE date_format(checkin_time, '%Y-%m-%d %r') >= '2025-03-27 09:39 AM'
 
         if($request->ajax())
         {
@@ -55,15 +56,15 @@ class AssistanceTeacherController extends Controller
                                     return date('Y-m-d h:i A', strtotime($data->departure_time));
                                 })
                                 ->filterColumn('assistance_teachers.created_at', function($query, $keyword) {
-                                    $sql = "DATE_FORMAT(assistance_teachers.created_at, '%Y/%m/%d %r') like ?";
+                                    $sql = "DATE_FORMAT(assistance_teachers.created_at, '%Y-%m-%d %r') like ?";
                                     $query->whereRaw($sql, ["%{$keyword}%"]);
                                 })
                                 ->filterColumn('checkin_time', function($query, $keyword) {
-                                    $sql = "DATE_FORMAT(checkin_time, '%Y/%m/%d %r') like ?";
+                                    $sql = "DATE_FORMAT(checkin_time, '%Y-%m-%d %r') like ?";
                                     $query->whereRaw($sql, ["%{$keyword}%"]);
                                 })
                                 ->filterColumn('departure_time', function($query, $keyword) {
-                                    $sql = "DATE_FORMAT(departure_time, '%Y/%m/%d %r') like ?";
+                                    $sql = "DATE_FORMAT(departure_time, '%Y-%m-%d %r') like ?";
                                     $query->whereRaw($sql, ["%{$keyword}%"]);
                                 })
                                 ->addColumn('action',function (AssistanceTeacher $data){
@@ -300,24 +301,28 @@ class AssistanceTeacherController extends Controller
 
     public function export() 
     {
-        if (! Gate::allows('manage-assistance')) {
+        if (! Gate::allows('manage-assistance'))
             abort(403);
-        }
 
         return Excel::download(new AssistanceTeacherExport, 'Asistencias_'.date('YmdHi', time()).'.xlsx');
     }
 
     public function export_by_range($ini, $end)
     {
+        if (!Gate::allows('manage-assistance'))
+            abort(403);
+
         if(strtotime($ini) && strtotime($end))
-        {
             return Excel::download(new AssistanceTeacherExport($ini, $end), 'Asistencias_'.date('YmdHi', time()).'.xlsx');
-        }
     }
 
     public function export_by_date($date)
     {
-        return Excel::download(new AssistanceFilterExport($date), 'Asistencias_'.date('YmdHi', time()).'.xlsx');
+        if (!Gate::allows('manage-assistance'))
+            abort(403);
+
+        if(strtotime($date))
+            return Excel::download(new AssistanceFilterExport($date), 'Asistencias_'.date('YmdHi', time()).'.xlsx');
     }
 
 

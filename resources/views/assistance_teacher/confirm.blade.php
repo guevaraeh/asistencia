@@ -19,7 +19,7 @@
                                 <table class="table table-hover">
                                     <tbody>
                                       <tr>
-                                        <th>Apellidos y Nombres</th>
+                                        <th class="col-4">Apellidos y Nombres</th>
                                         <td>
                                           {{ $teacher->lastname . ' ' . $teacher->name }}
                                           <input type="hidden" name="teacher-id" value="{{ $assistance->input('teacher-id') }}">

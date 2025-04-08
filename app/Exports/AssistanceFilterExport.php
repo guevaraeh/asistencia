@@ -7,34 +7,42 @@ use App\Models\Teacher;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class AssistanceFilterExport implements FromCollection, WithHeadings
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+
+class AssistanceFilterExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
     /**
     * @return \Illuminate\Support\Collection
     */
 
-    protected $year_month;
+    protected $date;
 
-    public function __construct($year_month) 
+    public function __construct($date) 
     {
-        $this->year_month = $year_month;
+        $this->date = $date;
+    }
+
+    public function styles(Worksheet $sheet)
+    {
+        return [
+            1    => ['font' => ['bold' => true]],
+        ];
     }
 
     public function collection()
     {
-        $ym = explode('-', $this->year_month);
-        if(count($ym) > 1)
-        {
-           $assistance_teachers = AssistanceTeacher::select([
-                DB::raw("DATE_FORMAT(assistance_teachers.created_at, '%Y/%m/%d %r')"),
+        $assistance_teachers = AssistanceTeacher::select([
+                DB::raw("DATE_FORMAT(assistance_teachers.created_at, '%Y-%m-%d %r')"),
                 DB::raw("CONCAT(teachers.lastname,' ',teachers.name) as teacher_name"),
                 'assistance_teachers.training_module',
                 'assistance_teachers.period',
                 'assistance_teachers.turn',
                 'assistance_teachers.didactic_unit',
-                DB::raw("DATE_FORMAT(assistance_teachers.checkin_time, '%Y/%m/%d %r')"),
-                DB::raw("DATE_FORMAT(assistance_teachers.departure_time, '%Y/%m/%d %r')"),
+                DB::raw("DATE_FORMAT(assistance_teachers.checkin_time, '%Y-%m-%d %r')"),
+                DB::raw("DATE_FORMAT(assistance_teachers.departure_time, '%Y-%m-%d %r')"),
                 'assistance_teachers.theme',
                 'assistance_teachers.place',
                 'assistance_teachers.educational_platforms',
@@ -42,35 +50,18 @@ class AssistanceFilterExport implements FromCollection, WithHeadings
                 ]) //periods.name
             ->join('teachers', 'assistance_teachers.teacher_id', '=', 'teachers.id')
             //->join('periods', 'assistance_teachers.period_id', '=', 'period.id')
-            ->whereRaw("year(assistance_teachers.created_at) = ? ", [$ym[0]])
-            ->whereRaw("month(assistance_teachers.created_at) = ? ", [$ym[1]])
-            ->orderBy('assistance_teachers.id', 'desc')
-            ->get();
-            return $assistance_teachers;
-        }
-        else{            
-            $assistance_teachers = AssistanceTeacher::select([
-                DB::raw("DATE_FORMAT(assistance_teachers.created_at, '%Y/%m/%d %r')"),
-                DB::raw("CONCAT(teachers.lastname,' ',teachers.name) as teacher_name"),
-                'assistance_teachers.training_module',
-                'assistance_teachers.period',
-                'assistance_teachers.turn',
-                'assistance_teachers.didactic_unit',
-                DB::raw("DATE_FORMAT(assistance_teachers.checkin_time, '%Y/%m/%d %r')"),
-                DB::raw("DATE_FORMAT(assistance_teachers.departure_time, '%Y/%m/%d %r')"),
-                'assistance_teachers.theme',
-                'assistance_teachers.place',
-                'assistance_teachers.educational_platforms',
-                'assistance_teachers.remarks',
-                ]) //periods.name
-            ->join('teachers', 'assistance_teachers.teacher_id', '=', 'teachers.id')
-            //->join('periods', 'assistance_teachers.period_id', '=', 'period.id')
-            ->whereRaw("year(assistance_teachers.created_at) = ? ", [$ym[0]])
-            ->orderBy('assistance_teachers.id', 'desc')
-            ->get();
-            //dd($assistance_teachers);
-            return $assistance_teachers;
-        }
+            ->orderBy('assistance_teachers.id', 'desc');
+
+        $dt = explode('-', $this->date);
+
+        if(count($dt) > 0)
+            $assistance_teachers->whereRaw("year(assistance_teachers.created_at) = ? ", [$dt[0]]);
+        if(count($dt) > 1)
+            $assistance_teachers->whereRaw("month(assistance_teachers.created_at) = ? ", [$dt[1]]);
+        if(count($dt) > 2)
+            $assistance_teachers->whereRaw("day(assistance_teachers.created_at) = ? ", [$dt[2]]);
+
+        return $assistance_teachers->get();
     }
 
     public function headings(): array

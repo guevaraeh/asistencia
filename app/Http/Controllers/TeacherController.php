@@ -90,15 +90,15 @@ class TeacherController extends Controller
                                     return date('Y-m-d h:i A', strtotime($data->departure_time));
                                 })
                                 ->filterColumn('created_at', function($query, $keyword) {
-                                    $sql = "DATE_FORMAT(created_at, '%Y/%m/%d %r') like ?";
+                                    $sql = "DATE_FORMAT(created_at, '%Y-%m-%d %r') like ?";
                                     $query->whereRaw($sql, ["%{$keyword}%"]);
                                 })
                                 ->filterColumn('checkin_time', function($query, $keyword) {
-                                    $sql = "DATE_FORMAT(checkin_time, '%Y/%m/%d %r') like ?";
+                                    $sql = "DATE_FORMAT(checkin_time, '%Y-%m-%d %r') like ?";
                                     $query->whereRaw($sql, ["%{$keyword}%"]);
                                 })
                                 ->filterColumn('departure_time', function($query, $keyword) {
-                                    $sql = "DATE_FORMAT(departure_time, '%Y/%m/%d %r') like ?";
+                                    $sql = "DATE_FORMAT(departure_time, '%Y-%m-%d %r') like ?";
                                     $query->whereRaw($sql, ["%{$keyword}%"]);
                                 })
                                 ->addColumn('action',function (AssistanceTeacher $data){
@@ -128,7 +128,7 @@ class TeacherController extends Controller
                                                     <table class="table table-hover">
                                                         <tbody>
                                                             <tr>
-                                                                <th><small>Módulo Formativo</small></th>
+                                                                <th class="col-4"><small>Módulo Formativo</small></th>
                                                                 <td><small>'.$data->training_module.'</small></td>
                                                             </tr>
                                                             <tr>
@@ -236,11 +236,28 @@ class TeacherController extends Controller
 
     public function export(Teacher $teacher) 
     {
-        if (!Gate::allows('manage-assistance')) {
+        if (!Gate::allows('manage-assistance'))
             abort(403);
-        }
-
+        
         return Excel::download(new TeacherExport($teacher->id), 'Asistencias_'.$teacher->lastname.'_'.$teacher->name.'_'.date('YmdHi', time()).'.xlsx');
+    }
+
+    public function export_by_range(Teacher $teacher, $ini, $end)
+    {
+        if (!Gate::allows('manage-assistance'))
+            abort(403);
+
+        if(strtotime($ini) && strtotime($end))
+            return Excel::download(new TeacherExport($teacher->id, $ini, $end), 'Asistencias_'.$teacher->lastname.'_'.$teacher->name.'_'.date('YmdHi', time()).'.xlsx');
+    }
+
+    public function export_by_date(Teacher $teacher, $date)
+    {
+        if (!Gate::allows('manage-assistance'))
+            abort(403);
+
+        if(strtotime($date)) 
+            return Excel::download(new TeacherExport($teacher->id, $date), 'Asistencias_'.$teacher->lastname.'_'.$teacher->name.'_'.date('YmdHi', time()).'.xlsx');
     }
 
     /**
