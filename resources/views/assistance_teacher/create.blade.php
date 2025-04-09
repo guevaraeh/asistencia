@@ -14,9 +14,8 @@
                 <form action="{{ route('assistance_teacher.confirm') }}" method="POST">
                     @csrf
                 <div class="card-body">
-                    <div class="mb-3">
                     <div class="form-group row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 mb-3">
                           <label for="exampleFormControlInput1" class="form-label"><b>Apellidos y Nombres</b><font color="red">*</font></label>
                           @if(isset($tch))
                           <input type="hidden" name="teacher-id" value="{{ $tch->id }}"><br>{{ $tch->lastname . ' ' . $tch->name }}
@@ -29,7 +28,7 @@
                           </select>
                           @endif
                       </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 mb-3">
                           <label for="exampleFormControlInput1" class="form-label"><b>Módulo Formativo</b><font color="red">*</font></label>
                           <select class="form-select" aria-label="Default select example" name="training-module" id="training-module" required>
                             <option selected disabled value="">--Seleccione--</option>
@@ -38,12 +37,10 @@
                           </select>
                       </div>
                     </div>
-                    </div>
 
-                    <div class="mb-3">
                         <div class="form-group row">
-                        <div class="col-sm-6">
-                          <label for="exampleFormControlInput1" class="form-label"><b>Período Académico</b><font color="red">*</font></label>
+                        <div class="col-sm-6 mb-3">
+                          <label for="exampleFormControlInput1" class="form-label"><b>Periodo Académico</b><font color="red">*</font></label>
                           <select class="form-select" aria-label="Default select example" name="period" id="period" required>
                             <option selected disabled value="">--Seleccione--</option>
                             {{--
@@ -56,7 +53,7 @@
                             @endforeach
                           </select>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 mb-3">
                           <label for="exampleFormControlInput1" class="form-label"><b>Turno/Sección</b><font color="red">*</font></label>
                           <select class="form-select" aria-label="Default select example" name="turn" id="turn" required>
                             <option selected disabled value="">--Seleccione--</option>
@@ -65,16 +62,14 @@
                           </select>
                       </div>
                       </div>
-                    </div>
 
                     <div class="mb-3">
                       <label for="exampleFormControlInput1" class="form-label"><b>Unidad Didáctica</b><font color="red">*</font></label>
                       <textarea class="form-control" id="validationCustom01" name="didactic-unit" id="didactic-unit" required></textarea>
                     </div>
 
-                    <div class="mb-3">
                         <div class="form-group row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 mb-3">
                           <label for="exampleFormControlInput1" class="form-label"><b>Hora de ingreso a clase</b><font color="red">*</font></label>
                           <input type="text" class="form-control timepicker1" name="checkin-time" id="checkin-time" 
                             {{--value="{{ date('Y-m-d H:i', time()) }}"--}}
@@ -84,7 +79,7 @@
                             <div class="invalid-feedback">Fecha y hora inválidos.</div>
                             @enderror
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 mb-3">
                           <label for="exampleFormControlInput1" class="form-label"><b>Hora de salida de clase</b><font color="red">*</font></label>
                           <input type="text" class="form-control timepicker2" name="departure-time" id="departure-time" 
                             {{--value="{{ date('Y-m-d H:i', strtotime('+3 hour')) }}"--}} 
@@ -95,7 +90,6 @@
                             @enderror
                         </div>
                         </div>
-                    </div>
 
                     <div class="mb-3">
                       <label for="exampleFormControlInput1" class="form-label"><b>Tema de actividad de aprendizaje</b><font color="red">*</font></label>
@@ -105,9 +99,8 @@
                         @enderror
                     </div>
 
-                    <div class="mb-3">
                     <div class="form-group row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 mb-3">
                     <label for="exampleFormControlInput1" class="form-label"><b>Lugar de realización de actividad</b><font color="red">*</font></label>
                       <div class="form-check">
                         <input class="form-check-input" type="radio" name="place" value="Aula" checked>
@@ -128,7 +121,7 @@
                       </div>
                     </div>
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 mb-3">
                     <label for="exampleFormControlInput1" class="form-label"><b>Plataformas educativas de apoyo</b></label>
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="educational-platforms[]" value="Moodle Institucional" checked>
@@ -147,7 +140,6 @@
                         <label class="form-check-label" for="flexCheckChecked">Otros</label>
                         <input type="text" class="form-control" id="apf" disabled>
                       </div>
-                    </div>
                     </div>
                     </div>
 

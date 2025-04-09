@@ -15,7 +15,7 @@
             <div class="col-lg-12">
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h5 class="card-title text-primary">Lista de Asistencias <a class="btn btn-sm" href="{{ route('assistance_teacher.export') }}" title="Exportar a Excel"><i class="bi-download"></i></a></h5>
+                  <h5 class="card-title text-primary">Lista de Asistencias</h5>
                 </div>
 
                 <div class="card-body">
@@ -33,7 +33,7 @@
                         <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                             
                             <div class="row justify-content-center align-items-center">
-                                <div class="col-sm-12 col-xl-12">
+                                <div class="col-sm-12 col-xl-8">
                                     <div class="form-group row">
                                         <div class="col-sm-3 mb-3">
                                             <label class="form-label"><b>Apellidos y Nombres</b></label>
@@ -49,9 +49,9 @@
                                             </select>
                                         </div>
                                         <div class="col-sm-3 mb-3">
-                                            <label class="form-label"><b>Período Académico</b></label>
+                                            <label class="form-label"><b>Periodo Académico</b></label>
                                             <select class="form-select" id="period-filter">
-                                                <option hidden>Período Académico</option>
+                                                <option hidden>Periodo Académico</option>
                                                 <option></option>
                                                 @foreach($periods as $period)
                                                 <option>{{ $period->name }}</option>
@@ -101,7 +101,7 @@
                                         </div>
                                         <div class="col-sm-9">
                                             <div class="input-group">
-                                                <a href="#" id="ranks" class="btn btn-primary">.xlsx</a>
+                                                <!--<a href="#" id="ranks" class="btn btn-primary">.xlsx</a>-->
                                                 <input type="text" class="form-control" id="init-date" value="{{ date('Y-m-d', strtotime('-1 days')) }}" readonly>
                                                 <input type="text" class="form-control" id="end-date" value="{{ date('Y-m-d', time()) }}" readonly>
                                                 <!--<button type="button" id="export" class="btn btn-primary">Generar</button>-->
@@ -112,18 +112,19 @@
                                     <div class="form-group row mb-3">
                                         <div class="col-sm-3 col-form-label">
                                             <input class="form-check-input" type="radio" name="export-option" id="by-day" >
-                                            <label class="form-check-label"><b>Por dia</b></label>
+                                            <label class="form-check-label"><b>Por día</b></label>
                                         </div>
                                         <div class="col-sm-9">
                                             <div class="input-group">
-                                                <a href="#" id="days" class="btn btn-primary disabled">.xlsx</a>
+                                                <!--<a href="#" id="days" class="btn btn-primary disabled">.xlsx</a>-->
                                                 <input type="text" class="form-control" id="set-day" value="{{ date('Y-m-d', time()) }}" readonly disabled>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
+                                </div>
                                 <div class="col-sm-12 col-xl-4">
+
                                     <div class="form-group row mb-3">
                                         <div class="col-sm-3 col-form-label">
                                             <input class="form-check-input" type="radio" name="export-option" id="by-month" >
@@ -131,7 +132,7 @@
                                         </div>
                                         <div class="col-sm-9">
                                             <div class="input-group">
-                                                <a href="#" id="months" class="btn btn-primary disabled">.xlsx</a>
+                                                <!--<a href="#" id="months" class="btn btn-primary disabled">.xlsx</a>-->
                                                 <input type="text" class="form-control" id="set-month" value="{{ date('Y-m', time()) }}" readonly disabled>
                                             </div>
                                         </div>
@@ -144,11 +145,20 @@
                                         </div>
                                         <div class="col-sm-9">
                                             <div class="input-group">
-                                                <a href="#" id="years" class="btn btn-primary disabled">.xlsx</a>
+                                                <!--<a href="#" id="years" class="btn btn-primary disabled">.xlsx</a>-->
                                                 <input type="text" class="form-control" id="set-year" value="{{ date('Y', time()) }}" readonly disabled>
                                             </div>
                                         </div>
                                     </div>
+
+                                </div>
+                                <div class="col-sm-12 col-xl-8">
+
+                                    <div class="form-group mb-3">
+                                        <a href="#" id="export-excel" class="btn btn-primary">Exportar</a>
+                                        <a href="{{ route('assistance_teacher.export') }}" class="btn btn-primary">Exportar Todo</a>
+                                    </div>
+
                                 </div>
                             </div>
 
@@ -168,7 +178,7 @@
                                             <th class="input-filter uploaded-col">Fecha de subida</th>
                                             <th class="input-filter name-col">Apellidos y Nombres</th>
                                             <th class="select-module">Módulo Formativo</th>
-                                            <th class="select-period">Período Académico</th>
+                                            <th class="select-period">Periodo Académico</th>
                                             <th class="select-turn">Turno/Sección</th>
                                             {{--<th>Unidad Didáctica</th>--}}
                                             <th class="input-filter checkin-col">Hora de ingreso</th>
@@ -185,7 +195,7 @@
                                         	<th>Fecha de subida</th>
                                             <th>Apellidos y Nombres</th>
                                             <th>Módulo Formativo</th>
-                                            <th>Período Académico</th>
+                                            <th>Periodo Académico</th>
                                             <th>Turno/Sección</th>
                                             {{--<th>Unidad Didáctica</th>--}}
                                             <th>Hora de ingreso</th>
@@ -212,6 +222,18 @@
 @section('javascript')
 <script>
 $( document ).ready(function() {
+
+    var iconsDate = {
+                  time: 'bi bi-clock',
+                  date: 'bi bi-calendar',
+                  up: 'bi bi-arrow-up',
+                  down: 'bi bi-arrow-down',
+                  previous: 'bi bi-chevron-left',
+                  next: 'bi bi-chevron-right',
+                  today: 'bi bi-calendar-check',
+                  clear: 'bi bi-trash',
+                  close: 'bi bi-x',
+                };
 
 /****************************************************************************************************************/
 
@@ -383,102 +405,6 @@ $( document ).ready(function() {
                     });
                 });
 
-
-            /*this.api()
-                .columns('.input-filter')
-                .every(function () {
-                    let column = this;
-                    let title = column.header().textContent;
-     
-                    // Create input element
-                    let input = document.createElement('input');
-                    input.placeholder = title;
-                    input.setAttribute('class', 'form-control');
-                    input.setAttribute('id', column.header().id);
-                    //column.footer().replaceChildren(input);
-                    column.header().replaceChildren(input);
-     
-                    // Event listener for user input
-                    input.addEventListener('keyup', () => {
-                        if (column.search() !== this.value) {
-                            column.search(input.value).draw();
-                        }
-                    });
-                });
-
-            this.api()
-                .columns('.select-module')
-                .every(function () {
-                    let column = this;
-     
-                    // Create select element
-                    let select = document.createElement('select');
-                    select.setAttribute('class', 'form-select');
-                    select.add(new Option(''));
-                    //column.footer().replaceChildren(select);
-                    column.header().replaceChildren(select);
-                    
-                    // Add list of options
-                    select.add(new Option('Profesional/Especialidad'));
-                    select.add(new Option('Transversal/Empleabilidad'));
-
-                    // Apply listener for user change in value
-                    select.addEventListener('change', function () {
-                        column
-                            .search(select.value, {exact: true})
-                            .draw();
-                    });
-                });
-
-            this.api()
-                .columns('.select-period')
-                .every(function () {
-                    let column = this;
-     
-                    // Create select element
-                    let select = document.createElement('select');
-                    select.setAttribute('class', 'form-select');
-                    select.add(new Option(''));
-                    //column.footer().replaceChildren(select);
-                    column.header().replaceChildren(select);
-                    
-                    // Add list of options
-                    @foreach ($periods as $period)
-                    select.add(new Option('{{ $period->name }}'));
-                    @endforeach
-
-                    // Apply listener for user change in value
-                    select.addEventListener('change', function () {
-                        column
-                            .search(select.value, {exact: true})
-                            .draw();
-                    });
-                });
-
-            this.api()
-                .columns('.select-turn')
-                .every(function () {
-                    let column = this;
-     
-                    // Create select element
-                    let select = document.createElement('select');
-                    select.setAttribute('class', 'form-select');
-                    select.add(new Option(''));
-                    //column.footer().replaceChildren(select);
-                    column.header().replaceChildren(select);
-                    
-                    // Add list of options
-                    select.add(new Option('Diurno'));
-                    select.add(new Option('Nocturno'));
-
-                    // Apply listener for user change in value
-                    select.addEventListener('change', function () {
-                        column
-                            .search(select.value, {exact: true})
-                            .draw();
-                    });
-                });*/
-
         }
 
     });
@@ -503,22 +429,11 @@ $( document ).ready(function() {
         });
     });
 
-    const datefilters = document.getElementsByClassName('date-filter');
     
-    new tempusDominus.TempusDominus(datefilters[0], {
+    new tempusDominus.TempusDominus(document.getElementById("uploaded-filter"), {
             useCurrent: false,
             display: {
-                icons: {
-                  time: 'bi bi-clock',
-                  date: 'bi bi-calendar',
-                  up: 'bi bi-arrow-up',
-                  down: 'bi bi-arrow-down',
-                  previous: 'bi bi-chevron-left',
-                  next: 'bi bi-chevron-right',
-                  today: 'bi bi-calendar-check',
-                  clear: 'bi bi-trash',
-                  close: 'bi bi-x',
-                },
+                icons: iconsDate,
                 viewMode: 'calendar',
                 components: {
                   clock: false,
@@ -534,23 +449,12 @@ $( document ).ready(function() {
             },
         });
 
-    for (let i = 1; i < datefilters.length; i++)
-    {
-        new tempusDominus.TempusDominus(datefilters[i], {
+
+    const checkin_filter = new tempusDominus.TempusDominus(document.getElementById("checkin-filter"), {
             useCurrent: false,
             stepping: 5,
             display: {
-                icons: {
-                  time: 'bi bi-clock',
-                  date: 'bi bi-calendar',
-                  up: 'bi bi-arrow-up',
-                  down: 'bi bi-arrow-down',
-                  previous: 'bi bi-chevron-left',
-                  next: 'bi bi-chevron-right',
-                  today: 'bi bi-calendar-check',
-                  clear: 'bi bi-trash',
-                  close: 'bi bi-x',
-                },
+                icons: iconsDate,
                 viewMode: 'calendar',
                 components: {
                   decades: false,
@@ -566,33 +470,65 @@ $( document ).ready(function() {
                 format: "yyyy-MM-dd hh:mm T"
             },
         });
-    }
+
+    const departure_filter = new tempusDominus.TempusDominus(document.getElementById("departure-filter"), {
+            useCurrent: false,
+            stepping: 5,
+            display: {
+                icons: iconsDate,
+                viewMode: 'calendar',
+                components: {
+                  decades: false,
+                  year: true,
+                  month: true,
+                  date: true,
+                  clock: true,
+                },
+                sideBySide: true,
+            },
+            localization: {
+                locale: 'en',
+                format: "yyyy-MM-dd hh:mm T"
+            },
+            //promptTimeOnDateChange: true,
+        });
+
+    const checkin_sub = checkin_filter.subscribe(tempusDominus.Namespace.events.hide, (e) => {
+        departure_filter.updateOptions({
+            restrictions: {
+            minDate: e.date,
+            },
+        });
+        //console.log("Fecha:", moment(e.date).add(5, 'hours').format('YYYY-MM-DD hh:mm A'));
+        /*if($("#checkin-filter").val() != '' && $("#departure-filter").val() == '')
+            $("#departure-filter").val(moment(e.date).add(5, 'hours').format('YYYY-MM-DD hh:mm A')).trigger("change");*/
+    });
+    const departure_sub = departure_filter.subscribe(tempusDominus.Namespace.events.hide, (e) => {
+        checkin_filter.updateOptions({
+            restrictions: {
+            maxDate: e.date,
+            },
+        });
+        //console.log("Fecha:", moment(e.date).add(5, 'hours').format('YYYY-MM-DD hh:mm A'));
+        /*if($($("#departure-filter").val() != '' && "#checkin-filter").val() == '')
+            $("#checkin-filter").val(moment(e.date).subtract(5, 'hours').format('YYYY-MM-DD hh:mm A'));*/
+    });
 
 
 /******************************************************************************************************************************/
     
-    var route = "{{ route('assistance_teacher.export_by_range') }}"+"/";
+    /*var route = "{{ route('assistance_teacher.export_by_range') }}"+"/";
     $("#ranks").attr("href", route+$('#init-date').val()+"/"+$('#end-date').val());
 
     var route_date = "{{ route('assistance_teacher.export_by_date') }}"+"/";
     $("#days").attr("href", route_date+$('#set-day').val());
     $("#months").attr("href", route_date+$('#set-month').val());
-    $("#years").attr("href", route_date+$('#set-year').val());
+    $("#years").attr("href", route_date+$('#set-year').val());*/
 
     const linkedPicker1Element = document.getElementById("init-date");
     const linked1 = new tempusDominus.TempusDominus(linkedPicker1Element, {
       display: {
-            icons: {
-              //time: 'bi bi-clock',
-              date: 'bi bi-calendar',
-              up: 'bi bi-arrow-up',
-              down: 'bi bi-arrow-down',
-              previous: 'bi bi-chevron-left',
-              next: 'bi bi-chevron-right',
-              today: 'bi bi-calendar-check',
-              clear: 'bi bi-trash',
-              close: 'bi bi-x',
-            },
+            icons: iconsDate,
             components: {
                 clock: false,
                 hours: false,
@@ -611,17 +547,7 @@ $( document ).ready(function() {
     const linked2 = new tempusDominus.TempusDominus(document.getElementById("end-date"), {
         useCurrent: false,
         display: {
-            icons: {
-              //time: 'bi bi-clock',
-              date: 'bi bi-calendar',
-              up: 'bi bi-arrow-up',
-              down: 'bi bi-arrow-down',
-              previous: 'bi bi-chevron-left',
-              next: 'bi bi-chevron-right',
-              today: 'bi bi-calendar-check',
-              clear: 'bi bi-trash',
-              close: 'bi bi-x',
-            },
+            icons: iconsDate,
             components: {
                 clock: false,
                 hours: false,
@@ -644,7 +570,7 @@ $( document ).ready(function() {
             minDate: e.detail.date,
             },
         });
-        $("#ranks").attr("href", route+$('#init-date').val()+"/"+$('#end-date').val());
+        $("#export-excel").attr("href", route+$('#init-date').val()+"/"+$('#end-date').val());
     });
 
     const subscription = linked2.subscribe(tempusDominus.Namespace.events.change, (e) => {
@@ -653,7 +579,7 @@ $( document ).ready(function() {
             maxDate: e.date,
             },
         });
-        $("#ranks").attr("href", route+$('#init-date').val()+"/"+$('#end-date').val());
+        $("#export-excel").attr("href", route+$('#init-date').val()+"/"+$('#end-date').val());
     });
 
 
@@ -701,17 +627,7 @@ $( document ).ready(function() {
     const day = new tempusDominus.TempusDominus(document.getElementById("set-day"), {
         useCurrent: false,
         display: {
-            icons: {
-              //time: 'bi bi-clock',
-              date: 'bi bi-calendar',
-              up: 'bi bi-arrow-up',
-              down: 'bi bi-arrow-down',
-              previous: 'bi bi-chevron-left',
-              next: 'bi bi-chevron-right',
-              today: 'bi bi-calendar-check',
-              clear: 'bi bi-trash',
-              close: 'bi bi-x',
-            },
+            icons: iconsDate,
             components: {
                 //date: false,
                 //month: false,
@@ -730,17 +646,7 @@ $( document ).ready(function() {
     const month = new tempusDominus.TempusDominus(document.getElementById("set-month"), {
         useCurrent: false,
         display: {
-            icons: {
-              //time: 'bi bi-clock',
-              date: 'bi bi-calendar',
-              up: 'bi bi-arrow-up',
-              down: 'bi bi-arrow-down',
-              previous: 'bi bi-chevron-left',
-              next: 'bi bi-chevron-right',
-              today: 'bi bi-calendar-check',
-              clear: 'bi bi-trash',
-              close: 'bi bi-x',
-            },
+            icons: iconsDate,
             viewMode: 'months',
             components: {
                 date: false,
@@ -760,17 +666,7 @@ $( document ).ready(function() {
     const year = new tempusDominus.TempusDominus(document.getElementById("set-year"), {
         useCurrent: false,
         display: {
-            icons: {
-              //time: 'bi bi-clock',
-              date: 'bi bi-calendar',
-              up: 'bi bi-arrow-up',
-              down: 'bi bi-arrow-down',
-              previous: 'bi bi-chevron-left',
-              next: 'bi bi-chevron-right',
-              today: 'bi bi-calendar-check',
-              clear: 'bi bi-trash',
-              close: 'bi bi-x',
-            },
+            icons: iconsDate,
             viewMode: 'years',
             components: {
                 date: false,
@@ -787,14 +683,22 @@ $( document ).ready(function() {
         },
     });
 
+
+
+    /*var route = "{{ route('assistance_teacher.export_by_range') }}"+"/";
+    $("#ranks").attr("href", route+$('#init-date').val()+"/"+$('#end-date').val());
+
+    var route_date = "{{ route('assistance_teacher.export_by_date') }}"+"/";
+    $("#days").attr("href", route_date+$('#set-day').val());
+    $("#months").attr("href", route_date+$('#set-month').val());
+    $("#years").attr("href", route_date+$('#set-year').val());
+
     const subday = day.subscribe(tempusDominus.Namespace.events.change, (e) => {
         $("#days").attr("href", route_date+$('#set-day').val());
     });
-
     const submonth = month.subscribe(tempusDominus.Namespace.events.change, (e) => {
         $("#months").attr("href", route_date+$('#set-month').val());
     });
-
     const subyear = year.subscribe(tempusDominus.Namespace.events.change, (e) => {
         $("#years").attr("href", route_date+$('#set-year').val());
     });
@@ -852,6 +756,65 @@ $( document ).ready(function() {
             $("#days").addClass("disabled");
             $("#months").addClass("disabled");
             $("#years").removeClass("disabled");
+        }
+    });*/
+
+    var route = "{{ route('assistance_teacher.export_by_range') }}"+"/";
+    $("#export-excel").attr("href", route+$('#init-date').val()+"/"+$('#end-date').val());
+
+    var route_date = "{{ route('assistance_teacher.export_by_date') }}"+"/";
+
+    const subday = day.subscribe(tempusDominus.Namespace.events.change, (e) => {
+        $("#export-excel").attr("href", route_date+$('#set-day').val());
+    });
+    const submonth = month.subscribe(tempusDominus.Namespace.events.change, (e) => {
+        $("#export-excel").attr("href", route_date+$('#set-month').val());
+    });
+    const subyear = year.subscribe(tempusDominus.Namespace.events.change, (e) => {
+        $("#export-excel").attr("href", route_date+$('#set-year').val());
+    });
+
+    $('input[name="export-option"]').change(function(){
+        //alert( "otro" );
+        if($('#by-rank').is(':checked'))
+        {
+            $('#init-date').prop('disabled', false);
+            $('#end-date').prop('disabled', false);
+            $('#set-day').prop('disabled', true);
+            $('#set-month').prop('disabled', true);
+            $('#set-year').prop('disabled', true);
+
+            $("#export-excel").attr("href", route+$('#init-date').val()+"/"+$('#end-date').val());
+        }
+        if($('#by-day').is(':checked'))
+        {
+            $('#init-date').prop('disabled', true);
+            $('#end-date').prop('disabled', true);
+            $('#set-day').prop('disabled', false);
+            $('#set-month').prop('disabled', true);
+            $('#set-year').prop('disabled', true);
+
+            $("#export-excel").attr("href", route_date+$('#set-day').val());
+        }
+        if($('#by-month').is(':checked'))
+        {
+            $('#init-date').prop('disabled', true);
+            $('#end-date').prop('disabled', true);
+            $('#set-day').prop('disabled', true);
+            $('#set-month').prop('disabled', false);
+            $('#set-year').prop('disabled', true);
+
+            $("#export-excel").attr("href", route_date+$('#set-month').val());
+        }
+        if($('#by-year').is(':checked'))
+        {
+            $('#init-date').prop('disabled', true);
+            $('#end-date').prop('disabled', true);
+            $('#set-day').prop('disabled', true);
+            $('#set-month').prop('disabled', true);
+            $('#set-year').prop('disabled', false);
+
+            $("#export-excel").attr("href", route_date+$('#set-year').val());
         }
     });
 

@@ -28,7 +28,7 @@ class AssistanceTeacherController extends Controller
         }
 
         //dd(explode('-',"2025"));
-        //SELECT date_format(checkin_time, '%Y-%m-%d %r') as dt FROM assistance_teachers WHERE date_format(checkin_time, '%Y-%m-%d %r') >= '2025-03-27 09:39 AM'
+        //SELECT DATE_FORMAT(departure_time, '%Y-%m-%d %h:%i %p') FROM assistance_teachers WHERE departure_time <= STR_TO_DATE( '2025-04-08 12:15 PM' , '%Y-%m-%d %h:%i %p') ORDER BY id DESC
 
         if($request->ajax())
         {
@@ -56,17 +56,20 @@ class AssistanceTeacherController extends Controller
                                     return date('Y-m-d h:i A', strtotime($data->departure_time));
                                 })
                                 ->filterColumn('assistance_teachers.created_at', function($query, $keyword) {
-                                    $sql = "DATE_FORMAT(assistance_teachers.created_at, '%Y-%m-%d') like ?";
+                                    //$sql = "DATE_FORMAT(assistance_teachers.created_at, '%Y-%m-%d') like ?";
+                                    $sql = "assistance_teachers.created_at like STR_TO_DATE( ? , '%Y-%m-%d') ";
                                     $query->whereRaw($sql, ["%{$keyword}%"]);
                                 })
                                 ->filterColumn('checkin_time', function($query, $keyword) {
-                                    $sql = "DATE_FORMAT(checkin_time, '%Y-%m-%d %h:%i %p') >= ? ";
+                                    //$sql = "DATE_FORMAT(checkin_time, '%Y-%m-%d %h:%i %p') >= ? ";
+                                    $sql = "checkin_time >= STR_TO_DATE( ? , '%Y-%m-%d %h:%i %p') ";
                                     $query->whereRaw($sql, [$keyword]);
                                     //$sql = "DATE(checkin_time) like DATE(?) AND DATE_FORMAT(checkin_time, '%h:%i %p') >= DATE_FORMAT(STR_TO_DATE( ? , '%Y-%m-%d %h:%i %p'), '%h:%i %p')";
                                     //$query->whereRaw($sql, [$keyword,$keyword]);
                                 })
                                 ->filterColumn('departure_time', function($query, $keyword) {
-                                    $sql = "DATE_FORMAT(departure_time, '%Y-%m-%d %h:%i %p') <= ?";
+                                    //$sql = "DATE_FORMAT(departure_time, '%Y-%m-%d %h:%i %p') <= ? ";
+                                    $sql = "departure_time <= STR_TO_DATE( ? , '%Y-%m-%d %h:%i %p') ";
                                     $query->whereRaw($sql, [$keyword]);
                                 })
                                 ->addColumn('action',function (AssistanceTeacher $data){
@@ -80,7 +83,7 @@ class AssistanceTeacherController extends Controller
                                     }
                                     $links = 
                                     '<div class="btn-group" role="group" aria-label="Basic mixed styles example">'.
-                                      '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal'.$data->id.'" title="Ver registro completo">
+                                      '<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal'.$data->id.'" title="Ver registro completo">
                                           <i class="bi-eye"></i>
                                         </button>
 
@@ -153,9 +156,9 @@ class AssistanceTeacherController extends Controller
                                           </div>
                                         </div>
                                     '.
-                                    '<a type="button" href="'.route('assistance_teacher.edit',$data->id).'" class="btn btn-info" title="Editar"><i class="bi-pencil"></i></a>'
+                                    '<a type="button" href="'.route('assistance_teacher.edit',$data->id).'" class="btn btn-info btn-sm" title="Editar"><i class="bi-pencil"></i></a>'
                                     .
-                                    '<button type="button" class="btn btn-danger swalDefaultSuccess" form="deleteall" formaction="'.route('assistance_teacher.destroy',$data->id).'" value="'.date('Y-m-d h:i A', strtotime($data->created_at)).' de '.$data->teacher_name.'" title="Eliminar"><i class="bi-trash"></i></button>'
+                                    '<button type="button" class="btn btn-danger btn-sm swalDefaultSuccess" form="deleteall" formaction="'.route('assistance_teacher.destroy',$data->id).'" value="'.date('Y-m-d h:i A', strtotime($data->created_at)).' de '.$data->teacher_name.'" title="Eliminar"><i class="bi-trash"></i></button>'
                                     .'</div>'
                                     ;
                                     return $links;

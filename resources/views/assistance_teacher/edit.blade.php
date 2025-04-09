@@ -16,13 +16,12 @@
                     @method('PUT')
                 <div class="card-body">
                   
-                    <div class="mb-3">
                     <div class="form-group row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 mb-3">
                           <label for="exampleFormControlInput1" class="form-label"><b>Apellidos y Nombres</b><font color="red">*</font></label>
                           <input type="hidden" name="teacher-id" value="{{ $assistance_teacher->teacher->id }}"><br>{{ $assistance_teacher->teacher->lastname . ' ' . $assistance_teacher->teacher->name }}
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 mb-3">
                           <label for="exampleFormControlInput1" class="form-label"><b>Módulo Formativo</b><font color="red">*</font></label>
                           <select class="form-select" aria-label="Default select example" name="training-module" id="training-module" required>
                             <option value="Profesional/Especialidad" {{ $assistance_teacher->training_module == 'Profesional/Especialidad' ? 'selected' : '' }}>Profesional/Especialidad</option>
@@ -30,12 +29,10 @@
                           </select>
                       </div>
                     </div>
-                    </div>
 
-                    <div class="mb-3">
                         <div class="form-group row">
-                        <div class="col-sm-6">
-                          <label for="exampleFormControlInput1" class="form-label"><b>Período Académico</b><font color="red">*</font></label>
+                        <div class="col-sm-6 mb-3">
+                          <label for="exampleFormControlInput1" class="form-label"><b>Periodo Académico</b><font color="red">*</font></label>
                           <select class="form-select" aria-label="Default select example" name="period" id="period" required>
                             {{--
                             <option value="Segundo" {{ $assistance_teacher->period == 'Segundo' ? 'selected' : '' }}>Segundo</option>
@@ -47,7 +44,7 @@
                             @endforeach
                           </select>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 mb-3">
                           <label for="exampleFormControlInput1" class="form-label"><b>Turno/Sección</b><font color="red">*</font></label>
                           <select class="form-select" aria-label="Default select example" name="turn" id="turn" required>
                             <option value="Diurno" {{ $assistance_teacher->turn == 'Diurno' ? 'selected' : '' }}>Diurno</option>
@@ -55,16 +52,14 @@
                           </select>
                       </div>
                       </div>
-                    </div>
 
                     <div class="mb-3">
                       <label for="exampleFormControlInput1" class="form-label"><b>Unidad Didáctica</b><font color="red">*</font></label>
                       <textarea class="form-control" id="validationCustom01" name="didactic-unit" id="didactic-unit" required>{{ $assistance_teacher->didactic_unit }}</textarea>
                     </div>
 
-                    <div class="mb-3">
                         <div class="form-group row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 mb-3">
                           <label for="exampleFormControlInput1" class="form-label"><b>Hora de ingreso a clase</b><font color="red">*</font></label>
                           <input type="text" class="form-control timepicker1" name="checkin-time" id="checkin-time" 
                             value="{{ date('Y-m-d h:i A', strtotime($assistance_teacher->checkin_time) ) }}"
@@ -73,7 +68,7 @@
                             <div class="invalid-feedback">Fecha y hora inválidos.</div>
                             @enderror
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 mb-3">
                           <label for="exampleFormControlInput1" class="form-label"><b>Hora de salida de clase</b><font color="red">*</font></label>
                           <input type="text" class="form-control timepicker2" name="departure-time" id="departure-time" 
                             value="{{ date('Y-m-d h:i A', strtotime($assistance_teacher->departure_time) ) }}" 
@@ -83,7 +78,6 @@
                             @enderror
                         </div>
                         </div>
-                    </div>
 
                     <div class="mb-3">
                       <label for="exampleFormControlInput1" class="form-label"><b>Tema de actividad de aprendizaje</b><font color="red">*</font></label>
@@ -93,9 +87,8 @@
                         @enderror
                     </div>
 
-                    <div class="mb-3">
                     <div class="form-group row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 mb-3">
                     <label for="exampleFormControlInput1" class="form-label"><b>Lugar de realización de actividad</b><font color="red">*</font></label>
                       <div class="form-check">
                         <input class="form-check-input" type="radio" name="place" value="Aula" {{ $assistance_teacher->place == 'Aula' ? 'checked' : '' }}>
@@ -122,7 +115,7 @@
                       </div>
                     </div>
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 mb-3">
                     <label for="exampleFormControlInput1" class="form-label"><b>Plataformas educativas de apoyo</b></label>
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="educational-platforms[]" value="Moodle Institucional" {{ in_array("Moodle Institucional", $edplat) ? 'checked' : '' }}>
@@ -147,7 +140,6 @@
                         <input type="text" class="form-control" id="apf" disabled>
                         @endif
                       </div>
-                    </div>
                     </div>
                     </div>
 
