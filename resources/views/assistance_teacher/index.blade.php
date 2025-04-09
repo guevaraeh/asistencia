@@ -33,7 +33,7 @@
                         <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                             
                             <div class="row justify-content-center align-items-center">
-                                <div class="col-sm-8">
+                                <div class="col-sm-12 col-xl-12">
                                     <div class="form-group row">
                                         <div class="col-sm-3 mb-3">
                                             <label class="form-label"><b>Apellidos y Nombres</b></label>
@@ -75,11 +75,11 @@
                                             <input type="text" class="form-control date-filter" id="uploaded-filter">
                                         </div>
                                         <div class="col-sm-4 mb-3">
-                                            <label class="form-label"><b>Hora de ingreso (fecha)</b></label>
+                                            <label class="form-label"><b>Hora de ingreso</b></label>
                                             <input type="text" class="form-control date-filter" id="checkin-filter">
                                         </div>
                                         <div class="col-sm-4 mb-3">
-                                            <label class="form-label"><b>Hora de salida (fecha)</b></label>
+                                            <label class="form-label"><b>Hora de salida</b></label>
                                             <input type="text" class="form-control date-filter" id="departure-filter">
                                         </div>
                                     </div>
@@ -93,11 +93,11 @@
                             
                             <div class="row justify-content-center align-items-center">
 
-                                <div class="col-sm-4">
+                                <div class="col-sm-12 col-xl-4">
                                     <div class="form-group row mb-3">
                                         <div class="col-sm-3 col-form-label">
                                             <input class="form-check-input" type="radio" name="export-option" id="by-rank" checked>
-                                            <label for="exampleFormControlInput1" class="form-check-label"><b>Por rango</b></label>
+                                            <label class="form-check-label"><b>Por rango</b></label>
                                         </div>
                                         <div class="col-sm-9">
                                             <div class="input-group">
@@ -112,7 +112,7 @@
                                     <div class="form-group row mb-3">
                                         <div class="col-sm-3 col-form-label">
                                             <input class="form-check-input" type="radio" name="export-option" id="by-day" >
-                                            <label for="exampleFormControlInput1" class="form-check-label"><b>Por dia</b></label>
+                                            <label class="form-check-label"><b>Por dia</b></label>
                                         </div>
                                         <div class="col-sm-9">
                                             <div class="input-group">
@@ -123,11 +123,11 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-4">
+                                <div class="col-sm-12 col-xl-4">
                                     <div class="form-group row mb-3">
                                         <div class="col-sm-3 col-form-label">
                                             <input class="form-check-input" type="radio" name="export-option" id="by-month" >
-                                            <label for="exampleFormControlInput1" class="form-check-label"><b>Por mes</b></label>
+                                            <label class="form-check-label"><b>Por mes</b></label>
                                         </div>
                                         <div class="col-sm-9">
                                             <div class="input-group">
@@ -140,7 +140,7 @@
                                     <div class="form-group row mb-3">
                                         <div class="col-sm-3 col-form-label">
                                             <input class="form-check-input" type="radio" name="export-option" id="by-year" >
-                                            <label for="exampleFormControlInput1" class="form-check-label"><b>Por año</b></label>
+                                            <label class="form-check-label"><b>Por año</b></label>
                                         </div>
                                         <div class="col-sm-9">
                                             <div class="input-group">
@@ -297,6 +297,7 @@ $( document ).ready(function() {
                         if (column.search() !== this.value) {
                             column.search(input.value).draw();
                         }
+                        console.log('Modulo:',input.value);
                     });
                 });
 
@@ -314,6 +315,7 @@ $( document ).ready(function() {
                         if (column.search() !== this.value) {
                             column.search(input.value).draw();
                         }
+                        console.log('Periodo:',input.value);
                     });
                 });
 
@@ -331,6 +333,7 @@ $( document ).ready(function() {
                         if (column.search() !== this.value) {
                             column.search(input.value).draw();
                         }
+                        console.log('Turno:',input.value);
                     });
                 });
 
@@ -348,12 +351,13 @@ $( document ).ready(function() {
                         if (column.search() !== this.value) {
                             column.search(input.value).draw();
                         }
+                        console.log('Hora de entrada:',input.value);
                     });
-                    input.addEventListener('keyup', () => {
+                    /*input.addEventListener('keyup', () => {
                         if (column.search() !== this.value) {
                             column.search(input.value).draw();
                         }
-                    });
+                    });*/
                 });
 
             this.api()
@@ -370,6 +374,7 @@ $( document ).ready(function() {
                         if (column.search() !== this.value) {
                             column.search(input.value).draw();
                         }
+                        console.log('Hora de salida:',input.value);
                     });
                     input.addEventListener('keyup', () => {
                         if (column.search() !== this.value) {
@@ -499,9 +504,8 @@ $( document ).ready(function() {
     });
 
     const datefilters = document.getElementsByClassName('date-filter');
-    for (let i = 0; i < datefilters.length; i++)
-    {
-        new tempusDominus.TempusDominus(datefilters[i], {
+    
+    new tempusDominus.TempusDominus(datefilters[0], {
             useCurrent: false,
             display: {
                 icons: {
@@ -529,9 +533,10 @@ $( document ).ready(function() {
                 format: "yyyy-MM-dd"
             },
         });
-    }
 
-    /*new tempusDominus.TempusDominus(datefilters[1], {
+    for (let i = 1; i < datefilters.length; i++)
+    {
+        new tempusDominus.TempusDominus(datefilters[i], {
             useCurrent: false,
             stepping: 5,
             display: {
@@ -552,6 +557,7 @@ $( document ).ready(function() {
                   year: true,
                   month: true,
                   date: true,
+                  clock: true,
                 },
                 sideBySide: true,
             },
@@ -559,7 +565,9 @@ $( document ).ready(function() {
                 locale: 'en',
                 format: "yyyy-MM-dd hh:mm T"
             },
-        });*/
+        });
+    }
+
 
 /******************************************************************************************************************************/
     

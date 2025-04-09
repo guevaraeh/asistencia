@@ -56,16 +56,18 @@ class AssistanceTeacherController extends Controller
                                     return date('Y-m-d h:i A', strtotime($data->departure_time));
                                 })
                                 ->filterColumn('assistance_teachers.created_at', function($query, $keyword) {
-                                    $sql = "DATE_FORMAT(assistance_teachers.created_at, '%Y-%m-%d %r') like ?";
+                                    $sql = "DATE_FORMAT(assistance_teachers.created_at, '%Y-%m-%d') like ?";
                                     $query->whereRaw($sql, ["%{$keyword}%"]);
                                 })
                                 ->filterColumn('checkin_time', function($query, $keyword) {
-                                    $sql = "DATE_FORMAT(checkin_time, '%Y-%m-%d %r') like ?";
-                                    $query->whereRaw($sql, ["%{$keyword}%"]);
+                                    $sql = "DATE_FORMAT(checkin_time, '%Y-%m-%d %h:%i %p') >= ? ";
+                                    $query->whereRaw($sql, [$keyword]);
+                                    //$sql = "DATE(checkin_time) like DATE(?) AND DATE_FORMAT(checkin_time, '%h:%i %p') >= DATE_FORMAT(STR_TO_DATE( ? , '%Y-%m-%d %h:%i %p'), '%h:%i %p')";
+                                    //$query->whereRaw($sql, [$keyword,$keyword]);
                                 })
                                 ->filterColumn('departure_time', function($query, $keyword) {
-                                    $sql = "DATE_FORMAT(departure_time, '%Y-%m-%d %r') like ?";
-                                    $query->whereRaw($sql, ["%{$keyword}%"]);
+                                    $sql = "DATE_FORMAT(departure_time, '%Y-%m-%d %h:%i %p') <= ?";
+                                    $query->whereRaw($sql, [$keyword]);
                                 })
                                 ->addColumn('action',function (AssistanceTeacher $data){
                                     $updated = '';
