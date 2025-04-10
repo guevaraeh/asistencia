@@ -203,62 +203,8 @@ $( document ).ready(function() {
         $("#another-platform").val($(this).val());
     });
 
-    /******************************************
-    function generateAllowTimes() {
-        var hours = [];
-        var start = 5; 
-        var end = 23; 
 
-        for (var i = start; i <= end; i++) {
-            hours.push(i.toString().padStart(2, '0') + ':00');
-            hours.push(i.toString().padStart(2, '0') + ':15');
-            hours.push(i.toString().padStart(2, '0') + ':30');
-            hours.push(i.toString().padStart(2, '0') + ':45');
-        }
-        return hours;
-    }
-
-    $.datetimepicker.setLocale('es');
-
-    $('.timepicker1').datetimepicker({
-        //datepicker:false,
-        mask:true,
-        allowTimes: generateAllowTimes(),
-        timepicker: true,
-        format: 'Y-m-d H:i',
-        //format: 'Y-m-d h:i A',
-        utc: true,
-        onShow:function( ct )
-        {
-         this.setOptions({
-            maxDate: $('.timepicker2').val() ? $('.timepicker2').val() : false,
-            maxTime: $('.timepicker2').val() ? ( moment( $('.timepicker1').val(),'YYYY-MM-DD HH:mm').format('YYYY-MM-DD') == moment( $('.timepicker2').val(),'YYYY-MM-DD HH:mm').format('YYYY-MM-DD') ? moment($('.timepicker2').val(),'YYYY-MM-DD HH:mm').format('HH:mm') : false ) : false,
-         });
-          
-        },
-    });
-
-    $('.timepicker2').datetimepicker({
-        //datepicker:false,
-        mask:true,
-        allowTimes: generateAllowTimes(),
-        timepicker: true,
-        format: 'Y-m-d H:i',
-        //format: 'Y-m-d h:i A',
-        utc: true,
-        onShow:function( ct )
-        {
-         this.setOptions({
-            minDate: $('.timepicker1').val() ? $('.timepicker1').val() : false,
-            minTime: $('.timepicker1').val() ? ( moment($('.timepicker1').val(), 'YYYY-MM-DD HH:mm').format('YYYY-MM-DD') == moment($('.timepicker2').val(), 'YYYY-MM-DD HH:mm').format('YYYY-MM-DD') ? moment($('.timepicker1').val(), 'YYYY-MM-DD HH:mm').format('HH:mm') : false ) : false,
-         });
-
-        },
-    });
-    *************************************************/
-
-
-    /*********************************************************************************************************/
+    /*************************************************************************************************************/
 
     //https://preview.keenthemes.com/html/start-html-pro/docs/forms/tempus-dominus-datepicker
     const linkedPicker1Element = document.getElementById("checkin-time");
@@ -330,8 +276,34 @@ $( document ).ready(function() {
         });
     });
 
-    /************************************************************************************************/
+    /******************************************************************************************************/
 
+    /*$(".data-assistance").change(function(){
+        $.ajax({
+            method: "POST",
+            url: "/ruta", 
+            data: {
+                teacher_id: $('#teacher-id').val(),,
+                training_module: $('#training-module').val(),
+                period: $('#period').val(),
+                turn: $('#turn').val(),
+                didactic_unit: $('#didactic-unit').val(),
+                checkin_time: $('#checkin-time').val(),
+                departure_time: $('#departure-time').val(),
+                theme: $('#theme').val(),
+                place: $('input[name="place"]').val(),
+                educational_platforms: $('input[name="educational-platforms[]"]').val(),
+                remarks: $('#remarks').val(),
+                _token: "{{ csrf_token() }}"
+            },
+            success: function(result){
+                $("#block-comment").html('Enviado');
+                //console.log(result);
+            }
+        });
+    });*/
+
+    /******************************************************************************************************/
 
     $('.selectto').select2({
       language: 'es',

@@ -186,6 +186,14 @@ class AssistanceTeacherController extends Controller
         return view('assistance_teacher.create',['teachers' => $teachers, 'periods' => Period::get()]);
     }
 
+    public function temp_store_ajax(Request $request)
+    {
+        if($request->ajax())
+        {
+            //con los datos tiene que ir actualizando conforme va llenando el formulario de asistencia
+        }
+    }
+
     public function confirm(StoreAssistanceTeacherRequest $request)
     {
         $validated = $request->validate([
@@ -331,22 +339,26 @@ class AssistanceTeacherController extends Controller
     }
 
 
-    public function export_ajax(Request $request) 
+    public function assistance_comment_ajax(Request $request) 
     {
-        if (! Gate::allows('manage-assistance')) {
-            abort(403);
-        }
-
         if($request->ajax())
         {
+            $comment = DB::table('comments')->insert([
+                'teacher_id' => $request->input('id'),
+                'comment' => $request->input('comment'),
+                'remember_token' => Str::random(50),
+            ]);
+            /*$comment->teacher_id = $request->input('id');
+            $comment->comment = $request->input('comment');
+            $comment->remember_token = Str::random(50);
+            $comment->save();*/
+
+            //return response()->json("Comentario enviado");
             //dd($request);
-            //return response()->json($request->input('ini') . '/' . $request->input('end'));
+            return response()->json($request->input('id') . '/' . $request->input('comment'));
             //return response()->json(route('assistance_teacher'));
             //return response()->json(route('assistance_teacher.export_by_range',[$request->input('ini'), $request->input('end')]));
-            return redirect()->route('assistance_teacher.export_by_range',[$request->input('ini'), $request->input('end')]);
         }
-
-        //return Excel::download(new AssistanceTeacherExport, 'Asistencias_'.date('YmdHi', time()).'.xlsx');
     }
 
     /**

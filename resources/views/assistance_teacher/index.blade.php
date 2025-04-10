@@ -517,13 +517,6 @@ $( document ).ready(function() {
 
 /******************************************************************************************************************************/
     
-    /*var route = "{{ route('assistance_teacher.export_by_range') }}"+"/";
-    $("#ranks").attr("href", route+$('#init-date').val()+"/"+$('#end-date').val());
-
-    var route_date = "{{ route('assistance_teacher.export_by_date') }}"+"/";
-    $("#days").attr("href", route_date+$('#set-day').val());
-    $("#months").attr("href", route_date+$('#set-month').val());
-    $("#years").attr("href", route_date+$('#set-year').val());*/
 
     const linkedPicker1Element = document.getElementById("init-date");
     const linked1 = new tempusDominus.TempusDominus(linkedPicker1Element, {
@@ -580,47 +573,6 @@ $( document ).ready(function() {
             },
         });
         $("#export-excel").attr("href", route+$('#init-date').val()+"/"+$('#end-date').val());
-    });
-
-
-    /*$.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });*/
-    /*$.ajax({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        url: url,
-        type: "DELETE",
-        data: data,
-        success: function(response) {
-            let successHtml = '<div class="alert alert-success" role="alert"><b>Project Deleted Successfully</b></div>';
-            $("#alert-div").html(successHtml);
-            showAllProjects();
-        },
-        error: function(response) {
-            console.log(response.responseJSON)
-        }
-    });*/
-    $("#export").click(function(){
-        //alert("Presionado");
-        $.ajax({
-            method: "POST",
-            url: "{{ route('assistance_teacher.export_ajax') }}", 
-            data: {
-                ini: $('#init-date').val(),
-                end: $('#end-date').val(),
-                _token: "{{ csrf_token() }}"
-            },
-            success: function(result){
-                //$("#div1").html(result);
-                console.log($('#init-date').val());
-                console.log($('#end-date').val());
-                //console.log(result);
-            }
-        });
     });
 
 
@@ -683,81 +635,6 @@ $( document ).ready(function() {
         },
     });
 
-
-
-    /*var route = "{{ route('assistance_teacher.export_by_range') }}"+"/";
-    $("#ranks").attr("href", route+$('#init-date').val()+"/"+$('#end-date').val());
-
-    var route_date = "{{ route('assistance_teacher.export_by_date') }}"+"/";
-    $("#days").attr("href", route_date+$('#set-day').val());
-    $("#months").attr("href", route_date+$('#set-month').val());
-    $("#years").attr("href", route_date+$('#set-year').val());
-
-    const subday = day.subscribe(tempusDominus.Namespace.events.change, (e) => {
-        $("#days").attr("href", route_date+$('#set-day').val());
-    });
-    const submonth = month.subscribe(tempusDominus.Namespace.events.change, (e) => {
-        $("#months").attr("href", route_date+$('#set-month').val());
-    });
-    const subyear = year.subscribe(tempusDominus.Namespace.events.change, (e) => {
-        $("#years").attr("href", route_date+$('#set-year').val());
-    });
-
-    $('input[name="export-option"]').change(function(){
-        //alert( "otro" );
-        if($('#by-rank').is(':checked'))
-        {
-            $('#init-date').prop('disabled', false);
-            $('#end-date').prop('disabled', false);
-            $('#set-day').prop('disabled', true);
-            $('#set-month').prop('disabled', true);
-            $('#set-year').prop('disabled', true);
-
-            $("#ranks").removeClass("disabled");
-            $("#days").addClass("disabled");
-            $("#months").addClass("disabled");
-            $("#years").addClass("disabled");
-        }
-        if($('#by-day').is(':checked'))
-        {
-            $('#init-date').prop('disabled', true);
-            $('#end-date').prop('disabled', true);
-            $('#set-day').prop('disabled', false);
-            $('#set-month').prop('disabled', true);
-            $('#set-year').prop('disabled', true);
-
-            $("#ranks").addClass("disabled");
-            $("#days").removeClass("disabled");
-            $("#months").addClass("disabled");
-            $("#years").addClass("disabled");
-        }
-        if($('#by-month').is(':checked'))
-        {
-            $('#init-date').prop('disabled', true);
-            $('#end-date').prop('disabled', true);
-            $('#set-day').prop('disabled', true);
-            $('#set-month').prop('disabled', false);
-            $('#set-year').prop('disabled', true);
-
-            $("#ranks").addClass("disabled");
-            $("#days").addClass("disabled");
-            $("#months").removeClass("disabled");
-            $("#years").addClass("disabled");
-        }
-        if($('#by-year').is(':checked'))
-        {
-            $('#init-date').prop('disabled', true);
-            $('#end-date').prop('disabled', true);
-            $('#set-day').prop('disabled', true);
-            $('#set-month').prop('disabled', true);
-            $('#set-year').prop('disabled', false);
-
-            $("#ranks").addClass("disabled");
-            $("#days").addClass("disabled");
-            $("#months").addClass("disabled");
-            $("#years").removeClass("disabled");
-        }
-    });*/
 
     var route = "{{ route('assistance_teacher.export_by_range') }}"+"/";
     $("#export-excel").attr("href", route+$('#init-date').val()+"/"+$('#end-date').val());
