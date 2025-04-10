@@ -19,6 +19,8 @@
                                             <th>#</th>
                                             <th>Apellidos</th>
                                             <th>Nombres</th>
+                                            <th>Correo</th>
+                                            <th>Telefono</th>
                                             <th>Nro. de registros de asistencia</th>
                                             <th>Acciones</th>
                                         </tr>
@@ -29,6 +31,8 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $teacher->lastname }}</td>
                                             <td>{{ $teacher->name }}</td>
+                                            <td>{{ $teacher->email }}</td>
+                                            <td>{{ $teacher->phone }}</td>
                                             <td>{{ $teacher->assistances->count() }}</td>
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">

@@ -3,6 +3,7 @@
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\AssistanceTeacherController;
 use App\Http\Controllers\PeriodController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Gate;
@@ -48,6 +49,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/assistances-export/{teacher}', [TeacherController::class, 'export'])->name('teacher.export');
     Route::get('/assistances-export-by-range/{teacher}/{ini?}/{end?}', [TeacherController::class, 'export_by_range'])->name('teacher.export_by_range');
     Route::get('/assistances-export-by-date/{teacher}/{date?}', [TeacherController::class, 'export_by_date'])->name('teacher.export_by_date');
+
+    Route::get('/comments', [CommentController::class, 'index'])->name('comments');
 
 
     Route::get('/period', [PeriodController::class, 'index'])->name('period');

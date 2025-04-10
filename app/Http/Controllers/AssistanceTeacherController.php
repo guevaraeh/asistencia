@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AssistanceTeacher;
 use App\Models\Teacher;
 use App\Models\Period;
+use App\Models\Comment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -56,16 +57,14 @@ class AssistanceTeacherController extends Controller
                                     return date('Y-m-d h:i A', strtotime($data->departure_time));
                                 })
                                 ->filterColumn('assistance_teachers.created_at', function($query, $keyword) {
-                                    //$sql = "DATE_FORMAT(assistance_teachers.created_at, '%Y-%m-%d') like ?";
-                                    $sql = "assistance_teachers.created_at like STR_TO_DATE( ? , '%Y-%m-%d') ";
+                                    $sql = "DATE_FORMAT(assistance_teachers.created_at, '%Y-%m-%d') like ?";
+                                    //$sql = "assistance_teachers.created_at like STR_TO_DATE( ? , '%Y-%m-%d') ";
                                     $query->whereRaw($sql, ["%{$keyword}%"]);
                                 })
                                 ->filterColumn('checkin_time', function($query, $keyword) {
                                     //$sql = "DATE_FORMAT(checkin_time, '%Y-%m-%d %h:%i %p') >= ? ";
                                     $sql = "checkin_time >= STR_TO_DATE( ? , '%Y-%m-%d %h:%i %p') ";
                                     $query->whereRaw($sql, [$keyword]);
-                                    //$sql = "DATE(checkin_time) like DATE(?) AND DATE_FORMAT(checkin_time, '%h:%i %p') >= DATE_FORMAT(STR_TO_DATE( ? , '%Y-%m-%d %h:%i %p'), '%h:%i %p')";
-                                    //$query->whereRaw($sql, [$keyword,$keyword]);
                                 })
                                 ->filterColumn('departure_time', function($query, $keyword) {
                                     //$sql = "DATE_FORMAT(departure_time, '%Y-%m-%d %h:%i %p') <= ? ";
@@ -343,15 +342,11 @@ class AssistanceTeacherController extends Controller
     {
         if($request->ajax())
         {
-            $comment = DB::table('comments')->insert([
-                'teacher_id' => $request->input('id'),
-                'comment' => $request->input('comment'),
-                'remember_token' => Str::random(50),
-            ]);
-            /*$comment->teacher_id = $request->input('id');
-            $comment->comment = $request->input('comment');
+            $comment = new Comment;
+            $comment->teacher_id = $request->input('id');
+            $comment->text_comment = $request->input('comment');
             $comment->remember_token = Str::random(50);
-            $comment->save();*/
+            $comment->save();
 
             //return response()->json("Comentario enviado");
             //dd($request);

@@ -20,7 +20,6 @@
 
                 <div class="card-body">
 
-
                     <nav>
                         <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
                             <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Busqueda</button>
@@ -175,14 +174,14 @@
                                     <thead class="table-light">
                                         <tr>
                                             <!--<th></th>-->
-                                            <th class="input-filter uploaded-col">Fecha de subida</th>
-                                            <th class="input-filter name-col">Apellidos y Nombres</th>
-                                            <th class="select-module">Módulo Formativo</th>
-                                            <th class="select-period">Periodo Académico</th>
-                                            <th class="select-turn">Turno/Sección</th>
+                                            <th class="input-filter" id="uploaded-col">Fecha de subida</th>
+                                            <th class="input-filter" id="name-col">Apellidos y Nombres</th>
+                                            <th id="select-module">Módulo Formativo</th>
+                                            <th id="select-period">Periodo Académico</th>
+                                            <th id="select-turn">Turno/Sección</th>
                                             {{--<th>Unidad Didáctica</th>--}}
-                                            <th class="input-filter checkin-col">Hora de ingreso</th>
-                                            <th class="input-filter departure-col">Hora de salida</th>
+                                            <th class="input-filter" id="checkin-col">Hora de ingreso</th>
+                                            <th class="input-filter" id="departure-col">Hora de salida</th>
                                             {{--<th>Tema de actividad de aprendizaje</th>--}}
                                             {{--<th>Lugar</th>--}}
                                             {{--<th>Plataformas de apoyo</th>--}}
@@ -267,7 +266,7 @@ $( document ).ready(function() {
             $(".dt-search").html('');
 
             this.api()
-                .columns('.uploaded-col')
+                .columns('#uploaded-col')
                 .every(function (index) {
                     let column = this;
                     let title = column.header().textContent;
@@ -289,7 +288,7 @@ $( document ).ready(function() {
                 });
 
             this.api()
-                .columns('.name-col')
+                .columns('#name-col')
                 .every(function (index) {
                     let column = this;
                     let title = column.header().textContent;
@@ -306,7 +305,7 @@ $( document ).ready(function() {
                 });
 
             this.api()
-                .columns('.select-module')
+                .columns('#select-module')
                 .every(function (index) {
                     let column = this;
                     let title = column.header().textContent;
@@ -324,7 +323,7 @@ $( document ).ready(function() {
                 });
 
             this.api()
-                .columns('.select-period')
+                .columns('#select-period')
                 .every(function (index) {
                     let column = this;
                     let title = column.header().textContent;
@@ -342,7 +341,7 @@ $( document ).ready(function() {
                 });
 
             this.api()
-                .columns('.select-turn')
+                .columns('#select-turn')
                 .every(function (index) {
                     let column = this;
                     let title = column.header().textContent;
@@ -360,7 +359,7 @@ $( document ).ready(function() {
                 });
 
             this.api()
-                .columns('.checkin-col')
+                .columns('#checkin-col')
                 .every(function (index) {
                     let column = this;
                     let title = column.header().textContent;
@@ -383,7 +382,7 @@ $( document ).ready(function() {
                 });
 
             this.api()
-                .columns('.departure-col')
+                .columns('#departure-col')
                 .every(function (index) {
                     let column = this;
                     let title = column.header().textContent;
@@ -409,7 +408,6 @@ $( document ).ready(function() {
 
     });
 
-    //$(".dt-search").html('');
 
     dt.on('draw', function() {
         $('.swalDefaultSuccess').click(function(){
@@ -451,7 +449,7 @@ $( document ).ready(function() {
 
 
     const checkin_filter = new tempusDominus.TempusDominus(document.getElementById("checkin-filter"), {
-            useCurrent: false,
+            //useCurrent: false,
             stepping: 5,
             display: {
                 icons: iconsDate,
@@ -472,7 +470,7 @@ $( document ).ready(function() {
         });
 
     const departure_filter = new tempusDominus.TempusDominus(document.getElementById("departure-filter"), {
-            useCurrent: false,
+            //useCurrent: false,
             stepping: 5,
             display: {
                 icons: iconsDate,
@@ -500,8 +498,12 @@ $( document ).ready(function() {
             },
         });
         //console.log("Fecha:", moment(e.date).add(5, 'hours').format('YYYY-MM-DD hh:mm A'));
-        /*if($("#checkin-filter").val() != '' && $("#departure-filter").val() == '')
-            $("#departure-filter").val(moment(e.date).add(5, 'hours').format('YYYY-MM-DD hh:mm A')).trigger("change");*/
+        /*if($("#checkin-filter").val().length > 0 && $("#departure-filter").val().length == 0)
+        {
+            var dep_date = moment(e.date).add(5, 'hours').format('YYYY-MM-DD hh:mm A');
+            $("#departure-filter").val(dep_date);
+            dt.columns('#departure-col').search($("#departure-filter").val()).draw();
+        }*/
     });
     const departure_sub = departure_filter.subscribe(tempusDominus.Namespace.events.hide, (e) => {
         checkin_filter.updateOptions({
@@ -509,9 +511,13 @@ $( document ).ready(function() {
             maxDate: e.date,
             },
         });
-        //console.log("Fecha:", moment(e.date).add(5, 'hours').format('YYYY-MM-DD hh:mm A'));
-        /*if($($("#departure-filter").val() != '' && "#checkin-filter").val() == '')
-            $("#checkin-filter").val(moment(e.date).subtract(5, 'hours').format('YYYY-MM-DD hh:mm A'));*/
+        //console.log("Fecha:", moment(e.date).subtract(5, 'hours').format('YYYY-MM-DD hh:mm A'));
+        /*if($("#departure-filter").val().length > 0 && $("#checkin-filter").val().length == 0)
+        {
+            var check_date = moment(e.date).subtract(5, 'hours').format('YYYY-MM-DD hh:mm A');
+            $("#checkin-filter").val(check_date);
+            dt.columns('#checkin-col').search($("#checkin-filter").val()).draw();
+        }*/
     });
 
 

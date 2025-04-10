@@ -29,6 +29,22 @@
                           <div class="invalid-feedback">Muy largo.</div>
                         @enderror
                       </div>
+
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label"><b>Correo</b><font color="red">*</font></label>
+                        <input type="email" class="form-control" id="exampleLastName" name="email" required>
+                        @error('email')
+                          <div class="invalid-feedback">Muy largo.</div>
+                        @enderror
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label"><b>Telefono</b><font color="red">*</font></label>
+                        <input type="number" class="form-control" id="exampleLastName" name="phone" required>
+                        @error('phone')
+                          <div class="invalid-feedback">Muy largo.</div>
+                        @enderror
+                      </div>
                   </div>
                   <div class="card-footer py-3">
                     <button type="submit" class="btn btn-primary">Guardar</button>
@@ -51,6 +67,12 @@ $( document ).ready(function() {
     @enderror
     @error('lastname')
         toastr.error('<strong>¡Error!</strong><br> Apellido incorrecto');
+    @enderror
+    @error('email')
+        toastr.error('<strong>¡Error!</strong><br> Correo incorrecto');
+    @enderror
+    @error('phone')
+        toastr.error('<strong>¡Error!</strong><br> Telefono incorrecto');
     @enderror
   @endif
 

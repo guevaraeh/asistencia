@@ -54,11 +54,15 @@ class TeacherController extends Controller
         $validated = $request->validate([
             'name' => 'required|max:100',
             'lastname' => 'required|max:100',
+            'email' => 'required|email|max:100',
+            'phone' => 'required|min:6|max:100',
         ]);
 
         $teacher = new Teacher;
         $teacher->name = $request->input('name');
         $teacher->lastname = $request->input('lastname');
+        $teacher->email = $request->input('email');
+        $teacher->phone = $request->input('phone');
         $teacher->remember_token = Str::random(50);
         $teacher->save();
 
@@ -91,15 +95,18 @@ class TeacherController extends Controller
                                 })
                                 ->filterColumn('created_at', function($query, $keyword) {
                                     $sql = "DATE_FORMAT(created_at, '%Y-%m-%d %r') like ?";
+                                    //$sql = "created_at like STR_TO_DATE( ? , '%Y-%m-%d') ";
                                     $query->whereRaw($sql, ["%{$keyword}%"]);
                                 })
                                 ->filterColumn('checkin_time', function($query, $keyword) {
-                                    $sql = "DATE_FORMAT(checkin_time, '%Y-%m-%d %r') like ?";
-                                    $query->whereRaw($sql, ["%{$keyword}%"]);
+                                    //$sql = "DATE_FORMAT(checkin_time, '%Y-%m-%d %r') like ?";
+                                    $sql = "checkin_time >= STR_TO_DATE( ? , '%Y-%m-%d %h:%i %p') ";
+                                    $query->whereRaw($sql, [$keyword]);
                                 })
                                 ->filterColumn('departure_time', function($query, $keyword) {
-                                    $sql = "DATE_FORMAT(departure_time, '%Y-%m-%d %r') like ?";
-                                    $query->whereRaw($sql, ["%{$keyword}%"]);
+                                    //$sql = "DATE_FORMAT(departure_time, '%Y-%m-%d %r') like ?";
+                                    $sql = "departure_time <= STR_TO_DATE( ? , '%Y-%m-%d %h:%i %p') ";
+                                    $query->whereRaw($sql, [$keyword]);
                                 })
                                 ->addColumn('action',function (AssistanceTeacher $data){
                                     $updated = '';
@@ -218,6 +225,8 @@ class TeacherController extends Controller
 
         $teacher->name = $request->input('name');
         $teacher->lastname = $request->input('lastname');
+        $teacher->email = $request->input('email');
+        $teacher->phone = $request->input('phone');
         $teacher->save();
 
         return redirect(route('teacher'))->with('success', 'Profesor editado');
@@ -231,6 +240,9 @@ class TeacherController extends Controller
 
     public function submitted(Teacher $teacher)
     {
+        if (Gate::allows('manage-assistance'))
+            abort(403);
+
         return view('teacher.submitted',['teacher' => $teacher]);
     }
 

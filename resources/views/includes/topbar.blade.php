@@ -27,6 +27,9 @@
             <li><a class="dropdown-item" href="{{ route('assistance_teacher.create') }}">Crear asistencia</a></li>
           </ul>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('comments') }}"><i class="bi-book"></i> Comentarios</a>
+        </li>
       </ul>
       @endcan
       <ul class="navbar-nav ms-auto navbar-right">

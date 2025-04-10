@@ -20,7 +20,7 @@
                           @if(isset($tch))
                           <input type="hidden" name="teacher-id" value="{{ $tch->id }}"><br>{{ $tch->lastname . ' ' . $tch->name }}
                           @else
-                          <select class="form-select selectto" aria-label="Default select example" name="teacher-id" id="teacher-id" required>
+                          <select class="form-select selectto data-assistance" aria-label="Default select example" name="teacher-id" id="teacher-id" required>
                             <option selected disabled value="">--Seleccione profesor--</option>
                             @foreach($teachers as $teacher)
                                 <option value="{{ $teacher->id }}">{{ $teacher->lastname . ' ' . $teacher->name }}</option>
@@ -30,7 +30,7 @@
                       </div>
                         <div class="col-sm-6 mb-3">
                           <label for="exampleFormControlInput1" class="form-label"><b>Módulo Formativo</b><font color="red">*</font></label>
-                          <select class="form-select" aria-label="Default select example" name="training-module" id="training-module" required>
+                          <select class="form-select data-assistance" aria-label="Default select example" name="training-module" id="training-module" required>
                             <option selected disabled value="">--Seleccione--</option>
                             <option value="Profesional/Especialidad">Profesional/Especialidad</option>
                             <option value="Transversal/Empleabilidad">Transversal/Empleabilidad</option>
@@ -41,7 +41,7 @@
                         <div class="form-group row">
                         <div class="col-sm-6 mb-3">
                           <label for="exampleFormControlInput1" class="form-label"><b>Periodo Académico</b><font color="red">*</font></label>
-                          <select class="form-select" aria-label="Default select example" name="period" id="period" required>
+                          <select class="form-select data-assistance" aria-label="Default select example" name="period" id="period" required>
                             <option selected disabled value="">--Seleccione--</option>
                             {{--
                             <option value="Segundo">Segundo</option>
@@ -55,7 +55,7 @@
                         </div>
                         <div class="col-sm-6 mb-3">
                           <label for="exampleFormControlInput1" class="form-label"><b>Turno/Sección</b><font color="red">*</font></label>
-                          <select class="form-select" aria-label="Default select example" name="turn" id="turn" required>
+                          <select class="form-select data-assistance" aria-label="Default select example" name="turn" id="turn" required>
                             <option selected disabled value="">--Seleccione--</option>
                             <option value="Diurno">Diurno</option>
                             <option value="Nocturno">Nocturno</option>
@@ -65,13 +65,13 @@
 
                     <div class="mb-3">
                       <label for="exampleFormControlInput1" class="form-label"><b>Unidad Didáctica</b><font color="red">*</font></label>
-                      <textarea class="form-control" id="validationCustom01" name="didactic-unit" id="didactic-unit" required></textarea>
+                      <textarea class="form-control data-assistance" id="validationCustom01" name="didactic-unit" id="didactic-unit" required></textarea>
                     </div>
 
                         <div class="form-group row">
                         <div class="col-sm-6 mb-3">
                           <label for="exampleFormControlInput1" class="form-label"><b>Hora de ingreso a clase</b><font color="red">*</font></label>
-                          <input type="text" class="form-control timepicker1" name="checkin-time" id="checkin-time" 
+                          <input type="text" class="form-control timepicker1 data-assistance" name="checkin-time" id="checkin-time" 
                             {{--value="{{ date('Y-m-d H:i', time()) }}"--}}
                             value="{{ date('Y-m-d h:i A', time()) }}"
                           readonly required>
@@ -81,7 +81,7 @@
                         </div>
                         <div class="col-sm-6 mb-3">
                           <label for="exampleFormControlInput1" class="form-label"><b>Hora de salida de clase</b><font color="red">*</font></label>
-                          <input type="text" class="form-control timepicker2" name="departure-time" id="departure-time" 
+                          <input type="text" class="form-control timepicker2 data-assistance" name="departure-time" id="departure-time" 
                             {{--value="{{ date('Y-m-d H:i', strtotime('+3 hour')) }}"--}} 
                             value="{{ date('Y-m-d h:i A', strtotime('+3 hour')) }}"
                           readonly required>
@@ -93,7 +93,7 @@
 
                     <div class="mb-3">
                       <label for="exampleFormControlInput1" class="form-label"><b>Tema de actividad de aprendizaje</b><font color="red">*</font></label>
-                      <input type="text" class="form-control" name="theme" id="theme" required>
+                      <input type="text" class="form-control data-assistance" name="theme" id="theme" required>
                         @error('theme')
                         <div class="invalid-feedback">Incorrecto.</div>
                         @enderror
@@ -103,19 +103,19 @@
                     <div class="col-sm-6 mb-3">
                     <label for="exampleFormControlInput1" class="form-label"><b>Lugar de realización de actividad</b><font color="red">*</font></label>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="place" value="Aula" checked>
+                        <input class="form-check-input data-assistance" type="radio" name="place" value="Aula" checked>
                         <label class="form-check-label" for="flexRadioDefault1">Aula</label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="place" value="Laboratorio">
+                        <input class="form-check-input data-assistance" type="radio" name="place" value="Laboratorio">
                         <label class="form-check-label" for="flexRadioDefault2">Laboratorio</label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="place" value="Taller">
+                        <input class="form-check-input data-assistance" type="radio" name="place" value="Taller">
                         <label class="form-check-label" for="flexRadioDefault2">Taller</label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="place" value="" id="another-place">
+                        <input class="form-check-input data-assistance" type="radio" name="place" value="" id="another-place">
                         <label class="form-check-label" for="flexRadioDefault2">Otros</label>
                         <input type="text" class="form-control" id="ap" disabled>
                       </div>
@@ -124,19 +124,19 @@
                     <div class="col-sm-6 mb-3">
                     <label for="exampleFormControlInput1" class="form-label"><b>Plataformas educativas de apoyo</b></label>
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="educational-platforms[]" value="Moodle Institucional" checked>
+                        <input class="form-check-input data-assistance" type="checkbox" name="educational-platforms[]" value="Moodle Institucional" checked>
                         <label class="form-check-label" for="flexCheckDefault">Moodle Institucional</label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="educational-platforms[]" value="Google Meet">
+                        <input class="form-check-input data-assistance" type="checkbox" name="educational-platforms[]" value="Google Meet">
                         <label class="form-check-label" for="flexCheckChecked">Google Meet</label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="educational-platforms[]" value="Skipe">
+                        <input class="form-check-input data-assistance" type="checkbox" name="educational-platforms[]" value="Skipe">
                         <label class="form-check-label" for="flexCheckChecked">Skipe</label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="educational-platforms[]" id="another-platform" value="">
+                        <input class="form-check-input data-assistance" type="checkbox" name="educational-platforms[]" id="another-platform" value="">
                         <label class="form-check-label" for="flexCheckChecked">Otros</label>
                         <input type="text" class="form-control" id="apf" disabled>
                       </div>
@@ -145,7 +145,7 @@
 
                     <div class="mb-3">
                       <label for="exampleFormControlInput1" class="form-label"><b>Observaciones</b></label>
-                      <textarea class="form-control" id="remarks" name="remarks"></textarea>
+                      <textarea class="form-control data-assistance" id="remarks" name="remarks"></textarea>
                     </div>
                   
                 </div>
@@ -278,8 +278,9 @@ $( document ).ready(function() {
 
     /******************************************************************************************************/
 
-    /*$(".data-assistance").change(function(){
-        $.ajax({
+    $(".data-assistance").change(function(){
+        console.log("dato puesto:", $(this).val());
+        /*$.ajax({
             method: "POST",
             url: "/ruta", 
             data: {
@@ -300,14 +301,15 @@ $( document ).ready(function() {
                 $("#block-comment").html('Enviado');
                 //console.log(result);
             }
-        });
-    });*/
+        });*/
+    });
 
     /******************************************************************************************************/
 
     $('.selectto').select2({
-      language: 'es',
-      theme: 'bootstrap-5'
+        width: '100%',
+        language: 'es',
+        theme: 'bootstrap-5'
     });
 
     
