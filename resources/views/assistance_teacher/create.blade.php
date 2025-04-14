@@ -328,9 +328,17 @@ $( document ).ready(function() {
                             $('#training-module').val(response.training_module);
                             $('#period').val(response.period);
                             $('#turn').val(response.turn);
+
                             $('#didactic-unit').val(response.didactic_unit);
+
                             $('#checkin-time').val(response.checkin_time);
                             $('#departure-time').val(response.departure_time);
+                            
+                            /*linked1.dates.setDate(response.checkin_time);
+                            document.getElementById('checkin-time').trigger(tempusDominus.Namespace.events.change);
+                            linked2.dates.setDate(response.departure_time);
+                            document.getElementById('departure-time').trigger(tempusDominus.Namespace.events.change);*/
+
                             $('#theme').val(response.theme);
                             $('#remarks').val(response.remarks);
 
@@ -446,6 +454,15 @@ $( document ).ready(function() {
         theme: 'bootstrap-5',
         containerCssClass: 'form-select',
     });
+
+    /*new TomSelect("#teacher-id",{
+        create: true,
+        //onChange : eventHandler('onChange'),
+        sortField: {
+            field: "text",
+            direction: "asc"
+        }
+    });*/
 
     @if ($errors->any()) 
         @error('checkin-time')

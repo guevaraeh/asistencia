@@ -90,7 +90,7 @@ class AssistanceTeacherController extends Controller
                                           <div class="modal-dialog modal-lg modal-dialog-centered">
                                             <div class="modal-content">
                                               <div class="modal-header bg-primary">
-                                                <h5 class="modal-title text-light" id="exampleModalLabel"> Registro de '.date('Y-m-d h:i A', strtotime($data->created_at)).'</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel"> Registro de asistencia del '.date('Y-m-d h:i A', strtotime($data->created_at)).'</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                               </div>
                                               <div class="modal-body">

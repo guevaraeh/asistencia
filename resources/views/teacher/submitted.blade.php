@@ -53,7 +53,8 @@ $( document ).ready(function() {
                 _token: "{{ csrf_token() }}"
             },
             success: function(result){
-                $("#block-comment").html('<p class="card-text text-center">Enviado.</p>');
+                //$("#block-comment").html('<p class="card-text text-center">Enviado.</p>');
+                $("#block-comment").html('<div class="alert alert-success alert-dismissible fade show text-center" role="alert"><strong>Enviado</strong></div>');
                 //console.log(result);
             }
         });

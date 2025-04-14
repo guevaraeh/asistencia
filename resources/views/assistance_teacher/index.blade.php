@@ -21,13 +21,13 @@
         <div class="card-body">
 
             <nav>
-                <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                <div class="nav nav-tabs mb-1" id="nav-tab" role="tablist">
                     <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Busqueda</button>
                     <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Exportar a Excel</button>
                 </div>
             </nav>
 
-            <div class="tab-content p-3 border bg-light" id="nav-tabContent">
+            <div class="tab-content p-3 bg-dark" id="nav-tabContent">
 
                 <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     
@@ -415,7 +415,7 @@ $( document ).ready(function() {
                 title: '¿Esta seguro que desea eliminarlo?',
                 text: 'Registro de asistencia del '+$(this).val(),
                 showDenyButton: true,
-                confirmButtonText: "Si, eliminarlo",
+                confirmButtonText: "Si, eliminar",
                 denyButtonText: "No, cancelar",
                 icon: "warning",
                 customClass: {
@@ -452,8 +452,10 @@ $( document ).ready(function() {
         });
 
 
-    const checkin_filter = new tempusDominus.TempusDominus(document.getElementById("checkin-filter"), {
-            //useCurrent: false,
+
+    const linkedCheckinElement = document.getElementById("checkin-filter");
+    const checkin_filter = new tempusDominus.TempusDominus(linkedCheckinElement, {
+            useCurrent: false,
             stepping: 5,
             display: {
                 icons: iconsDate,
@@ -474,7 +476,7 @@ $( document ).ready(function() {
         });
 
     const departure_filter = new tempusDominus.TempusDominus(document.getElementById("departure-filter"), {
-            //useCurrent: false,
+            useCurrent: false,
             stepping: 5,
             display: {
                 icons: iconsDate,
@@ -495,34 +497,34 @@ $( document ).ready(function() {
             //promptTimeOnDateChange: true,
         });
 
-    const checkin_sub = checkin_filter.subscribe(tempusDominus.Namespace.events.hide, (e) => {
+    linkedCheckinElement.addEventListener(tempusDominus.Namespace.events.change, (e) => {
         departure_filter.updateOptions({
             restrictions: {
-            minDate: e.date,
+            minDate: e.detail.date,
             },
         });
-        //console.log("Fecha:", moment(e.date).add(5, 'hours').format('YYYY-MM-DD hh:mm A'));
-        /*if($("#checkin-filter").val().length > 0 && $("#departure-filter").val().length == 0)
+        if($("#checkin-filter").val().length > 0 && $("#departure-filter").val().length == 0)
         {
-            var dep_date = moment(e.date).add(5, 'hours').format('YYYY-MM-DD hh:mm A');
+            var dep_date = moment(e.detail.date).add(6, 'hours').format('YYYY-MM-DD hh:mm A');
             $("#departure-filter").val(dep_date);
             dt.columns('#departure-col').search($("#departure-filter").val()).draw();
-        }*/
+        }
     });
-    const departure_sub = departure_filter.subscribe(tempusDominus.Namespace.events.hide, (e) => {
+
+    const subscript_departure = departure_filter.subscribe(tempusDominus.Namespace.events.change, (e) => {
         checkin_filter.updateOptions({
             restrictions: {
             maxDate: e.date,
             },
         });
-        //console.log("Fecha:", moment(e.date).subtract(5, 'hours').format('YYYY-MM-DD hh:mm A'));
-        /*if($("#departure-filter").val().length > 0 && $("#checkin-filter").val().length == 0)
+        if($("#departure-filter").val().length > 0 && $("#checkin-filter").val().length == 0)
         {
-            var check_date = moment(e.date).subtract(5, 'hours').format('YYYY-MM-DD hh:mm A');
+            var check_date = moment(e.date).subtract(6, 'hours').format('YYYY-MM-DD hh:mm A');
             $("#checkin-filter").val(check_date);
             dt.columns('#checkin-col').search($("#checkin-filter").val()).draw();
-        }*/
+        }
     });
+
 
 
 /******************************************************************************************************************************/

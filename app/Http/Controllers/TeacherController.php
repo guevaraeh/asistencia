@@ -119,7 +119,7 @@ class TeacherController extends Controller
                                     }
                                     $links = 
                                     '<div class="btn-group" role="group" aria-label="Basic mixed styles example">'.
-                                      '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal'.$data->id.'" title="Ver">
+                                      '<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal'.$data->id.'" title="Ver">
                                           <i class="bi-eye"></i>
                                         </button>
 
@@ -127,7 +127,7 @@ class TeacherController extends Controller
                                           <div class="modal-dialog modal-lg modal-dialog-centered">
                                             <div class="modal-content">
                                               <div class="modal-header bg-primary">
-                                                <h5 class="modal-title text-light" id="exampleModalLabel"> Registro de '.date('Y-m-d h:i A', strtotime($data->created_at)).'</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel"> Registro de asistencia del '.date('Y-m-d h:i A', strtotime($data->created_at)).'</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                               </div>
                                               <div class="modal-body">
@@ -188,9 +188,9 @@ class TeacherController extends Controller
                                           </div>
                                         </div>'
                                     .
-                                    '<a type="button" href="'.route('assistance_teacher.edit',$data->id).'" class="btn btn-info" title="Editar"><i class="bi-pencil"></i></a>'
+                                    '<a type="button" href="'.route('assistance_teacher.edit',$data->id).'" class="btn btn-info btn-sm" title="Editar"><i class="bi-pencil"></i></a>'
                                     .
-                                    '<button type="button" class="btn btn-danger swalDefaultSuccess" form="deleteall" formaction="'.route('assistance_teacher.destroy',$data->id).'" value="'.date('Y-m-d h:i A', strtotime($data->created_at)).'" title="Eliminar"><i class="bi-trash"></i></button>'
+                                    '<button type="button" class="btn btn-danger btn-sm swalDefaultSuccess" form="deleteall" formaction="'.route('assistance_teacher.destroy',$data->id).'" value="'.date('Y-m-d h:i A', strtotime($data->created_at)).'" title="Eliminar"><i class="bi-trash"></i></button>'
                                     .'</div>'
                                     ;
                                     return $links;

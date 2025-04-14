@@ -47,7 +47,8 @@ $( document ).ready(function() {
     $('#datat').DataTable({
         language: {
             url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'
-        }
+        },
+        order: [[0, 'desc']]
     });
 
     @if(Session::has('success'))
