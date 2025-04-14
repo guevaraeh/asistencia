@@ -181,15 +181,71 @@ class AssistanceTeacherController extends Controller
      */
     public function create()
     {
+        //dd(date('Y-m-d h:i A', strtotime('')));
         $teachers = DB::table('teachers')->orderBy('lastname','asc')->get();
         return view('assistance_teacher.create',['teachers' => $teachers, 'periods' => Period::get()]);
     }
 
-    public function temp_store_ajax(Request $request)
+    public function select_teacher_ajax(Request $request)
     {
+        if (Gate::allows('manage-assistance'))
+            abort(403);
+
         if($request->ajax())
         {
-            //con los datos tiene que ir actualizando conforme va llenando el formulario de asistencia
+            $tmp_assistance_teacher = null;
+            if( DB::table('tmp_assistance_teachers')->where('teacher_id', $request->input('id'))->exists() )
+            {
+                $tmp_assistance_teacher = DB::table('tmp_assistance_teachers')->where('teacher_id', $request->input('id'))->first();
+                $tmp_assistance_teacher->checkin_time = date('Y-m-d h:i A', strtotime($tmp_assistance_teacher->checkin_time));
+                $tmp_assistance_teacher->departure_time = date('Y-m-d h:i A', strtotime($tmp_assistance_teacher->departure_time));
+                $tmp_assistance_teacher->educational_platforms = $tmp_assistance_teacher->educational_platforms ? explode(', ', $tmp_assistance_teacher->educational_platforms) : [];
+
+                return response()->json($tmp_assistance_teacher);
+            }
+            else{
+                $data = [
+                    'teacher_id' => $request->input('id'),
+                    'training_module' => $request->input('training_module'),
+                    'period' => $request->input('period'),
+                    'turn' => $request->input('turn'),
+                    'didactic_unit' => $request->input('didactic_unit'),
+                    'checkin_time' => date('Y-m-d H:i:s', strtotime($request->input('checkin_time'))),
+                    'departure_time' => date('Y-m-d H:i:s', strtotime($request->input('departure_time'))),
+                    'theme' => $request->input('theme'),
+                    'place' => $request->input('place'),
+                    'educational_platforms' => $request->input('educational_platforms') ? implode(', ', $request->input('educational_platforms')) : null,
+                    'remarks' => $request->input('remarks')
+                ];
+                DB::table('tmp_assistance_teachers')->insert($data);
+            }
+        }
+    }
+
+    public function temp_store_ajax(Request $request)
+    {
+        if (Gate::allows('manage-assistance'))
+            abort(403);
+
+        if($request->ajax())
+        {
+            if($request->input('id') != '' && DB::table('tmp_assistance_teachers')->where('teacher_id', $request->input('id'))->exists())
+            {
+                $data = [
+                    'teacher_id' => $request->input('id'),
+                    'training_module' => $request->input('training_module'),
+                    'period' => $request->input('period'),
+                    'turn' => $request->input('turn'),
+                    'didactic_unit' => $request->input('didactic_unit'),
+                    'checkin_time' => date('Y-m-d H:i:s', strtotime($request->input('checkin_time'))),
+                    'departure_time' => date('Y-m-d H:i:s', strtotime($request->input('departure_time'))),
+                    'theme' => $request->input('theme'),
+                    'place' => $request->input('place'),
+                    'educational_platforms' => $request->input('educational_platforms') ? implode(', ', $request->input('educational_platforms')) : null,
+                    'remarks' => $request->input('remarks')
+                ];
+                DB::table('tmp_assistance_teachers')->where('teacher_id', $request->input('id') )->update($data);
+            }
         }
     }
 
@@ -243,6 +299,8 @@ class AssistanceTeacherController extends Controller
         $assistanceTeacher->remember_token = Str::random(50);
         
         $assistanceTeacher->save();
+
+        DB::table('tmp_assistance_teachers')->where('teacher_id', $request->input('teacher-id'))->delete();
 
         if (!Gate::allows('manage-assistance')) {
             return redirect(route('teacher.submitted', $assistanceTeacher->teacher_id));

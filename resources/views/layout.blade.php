@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @yield('title')
 
-    @include('includes.libraries')
+    {{--@include('includes.libraries')--}}
+    @include('includes.styles')
   </head>
   <body>
     
@@ -23,6 +24,7 @@
 
       </div>
     </div>
+    @include('includes.scripts')
     @yield('javascript')
   </body>
 </html>

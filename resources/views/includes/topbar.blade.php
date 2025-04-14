@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary mb-4 topbar" data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg mb-4 topbar bg-dark" data-bs-theme="dark">
   <div class="container-fluid">
     <span class="navbar-brand mb-0 h1">{{ auth()->user()->is_admin ? 'Administrador' : 'Docente' }}</span>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

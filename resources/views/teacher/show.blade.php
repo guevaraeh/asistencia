@@ -12,217 +12,215 @@
 </form>
 
 <div class="container-fluid">
-            <div class="col-lg-12">
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h5 class="card-title text-primary">Registro de asistencias de {{ $teacher->lastname . ' ' . $teacher->name }}</h5>
+    <div class="col-lg-12">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h5 class="card-title text-primary">Registro de asistencias de {{ $teacher->lastname . ' ' . $teacher->name }}</h5>
+        </div>
+        <div class="card-body">
+
+            <nav>
+                <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Busqueda</button>
+                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Exportar a Excel</button>
                 </div>
-                <div class="card-body">
+            </nav>
 
+            <div class="tab-content p-3 border bg-light" id="nav-tabContent">
 
-
-                                        <nav>
-                        <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
-                            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Busqueda</button>
-                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Exportar a Excel</button>
-                        </div>
-                    </nav>
-
-                    <div class="tab-content p-3 border bg-light" id="nav-tabContent">
-
-                        <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                            
-                            <div class="row justify-content-center align-items-center">
-                                <div class="col-sm-12 col-xl-8">
-                                    <div class="form-group row">
-                                        <div class="col-sm-4 mb-3">
-                                            <label class="form-label"><b>Módulo Formativo</b></label>
-                                            <select class="form-select" id="module-filter">
-                                                <option hidden>Módulo Formativo</option>
-                                                <option></option>
-                                                <option>Profesional/Especialidad</option>
-                                                <option>Transversal/Empleabilidad</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-4 mb-3">
-                                            <label class="form-label"><b>Periodo Académico</b></label>
-                                            <select class="form-select" id="period-filter">
-                                                <option hidden>Periodo Académico</option>
-                                                <option></option>
-                                                @foreach($periods as $period)
-                                                <option>{{ $period->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-4 mb-3">
-                                            <label class="form-label"><b>Turno/Sección</b></label>
-                                            <select class="form-select" id="turn-filter">
-                                                <option hidden>Turno/Sección</option>
-                                                <option></option>
-                                                <option>Diurno</option>
-                                                <option>Nocturno</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <div class="col-sm-4 mb-3">
-                                            <label class="form-label"><b>Fecha de subida</b></label>
-                                            <input type="text" class="form-control date-filter" id="uploaded-filter">
-                                        </div>
-                                        <div class="col-sm-4 mb-3">
-                                            <label class="form-label"><b>Hora de ingreso</b></label>
-                                            <input type="text" class="form-control date-filter" id="checkin-filter">
-                                        </div>
-                                        <div class="col-sm-4 mb-3">
-                                            <label class="form-label"><b>Hora de salida</b></label>
-                                            <input type="text" class="form-control date-filter" id="departure-filter">
-                                        </div>
-                                    </div>
+                <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-sm-12 col-xl-8">
+                            <div class="form-group row">
+                                <div class="col-sm-4 mb-3">
+                                    <label class="form-label"><b>Módulo Formativo</b></label>
+                                    <select class="form-select" id="module-filter">
+                                        <option hidden>Módulo Formativo</option>
+                                        <option></option>
+                                        <option>Profesional/Especialidad</option>
+                                        <option>Transversal/Empleabilidad</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4 mb-3">
+                                    <label class="form-label"><b>Periodo Académico</b></label>
+                                    <select class="form-select" id="period-filter">
+                                        <option hidden>Periodo Académico</option>
+                                        <option></option>
+                                        @foreach($periods as $period)
+                                        <option>{{ $period->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-sm-4 mb-3">
+                                    <label class="form-label"><b>Turno/Sección</b></label>
+                                    <select class="form-select" id="turn-filter">
+                                        <option hidden>Turno/Sección</option>
+                                        <option></option>
+                                        <option>Diurno</option>
+                                        <option>Nocturno</option>
+                                    </select>
                                 </div>
                             </div>
 
-                        </div>
-
-
-                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                            
-                            <div class="row justify-content-center align-items-center">
-
-                                <div class="col-sm-12 col-xl-4">
-                                    <div class="form-group row mb-3">
-                                        <div class="col-sm-3 col-form-label">
-                                            <input class="form-check-input" type="radio" name="export-option" id="by-rank" checked>
-                                            <label class="form-check-label"><b>Por rango</b></label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <div class="input-group">
-                                                <!--<a href="#" id="ranks" class="btn btn-primary">.xlsx</a>-->
-                                                <input type="text" class="form-control" id="init-date" value="{{ date('Y-m-d', strtotime('-1 days')) }}" readonly>
-                                                <input type="text" class="form-control" id="end-date" value="{{ date('Y-m-d', time()) }}" readonly>
-                                                <!--<button type="button" id="export" class="btn btn-primary">Generar</button>-->
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row mb-3">
-                                        <div class="col-sm-3 col-form-label">
-                                            <input class="form-check-input" type="radio" name="export-option" id="by-day" >
-                                            <label class="form-check-label"><b>Por día</b></label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <div class="input-group">
-                                                <!--<a href="#" id="days" class="btn btn-primary disabled">.xlsx</a>-->
-                                                <input type="text" class="form-control" id="set-day" value="{{ date('Y-m-d', time()) }}" readonly disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-
+                            <div class="form-group row">
+                                <div class="col-sm-4 mb-3">
+                                    <label class="form-label"><b>Fecha de subida</b></label>
+                                    <input type="text" class="form-control date-filter" id="uploaded-filter">
                                 </div>
-                                <div class="col-sm-12 col-xl-4">
-
-                                    <div class="form-group row mb-3">
-                                        <div class="col-sm-3 col-form-label">
-                                            <input class="form-check-input" type="radio" name="export-option" id="by-month" >
-                                            <label class="form-check-label"><b>Por mes</b></label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <div class="input-group">
-                                                <!--<a href="#" id="months" class="btn btn-primary disabled">.xlsx</a>-->
-                                                <input type="text" class="form-control" id="set-month" value="{{ date('Y-m', time()) }}" readonly disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row mb-3">
-                                        <div class="col-sm-3 col-form-label">
-                                            <input class="form-check-input" type="radio" name="export-option" id="by-year" >
-                                            <label class="form-check-label"><b>Por año</b></label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <div class="input-group">
-                                                <!--<a href="#" id="years" class="btn btn-primary disabled">.xlsx</a>-->
-                                                <input type="text" class="form-control" id="set-year" value="{{ date('Y', time()) }}" readonly disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                <div class="col-sm-4 mb-3">
+                                    <label class="form-label"><b>Hora de ingreso</b></label>
+                                    <input type="text" class="form-control date-filter" id="checkin-filter">
                                 </div>
-                                <div class="col-sm-12 col-xl-8">
-
-                                    <div class="form-group mb-3">
-                                        <a href="#" id="export-excel" class="btn btn-primary">Exportar</a>
-                                        <a href="{{ route('teacher.export', $teacher->id) }}" class="btn btn-primary">Exportar Todo</a>
-                                    </div>
-
+                                <div class="col-sm-4 mb-3">
+                                    <label class="form-label"><b>Hora de salida</b></label>
+                                    <input type="text" class="form-control date-filter" id="departure-filter">
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
 
-
-
-                  <div class="table-responsive">
-                                <table class="table table-hover" id="datat">
-                                    <thead>
-                                        <tr class="table-light">
-                                            <!--<th></th>-->
-                                            <th class="input-filter" id="uploaded-col">Fecha de subida</th>
-                                            <th id="select-module">Módulo Formativo</th>
-                                            <th id="select-period">Período Académico</th>
-                                            <th id="select-turn">Turno/Sección</th>
-                                            {{--<th>Unidad Didáctica</th>--}}
-                                            <th class="input-filter" id="checkin-col">Hora de ingreso</th>
-                                            <th class="input-filter" id="departure-col">Hora de salida</th>
-                                            {{--<th>Tema de actividad de aprendizaje</th>--}}
-                                            {{--<th>Lugar</th>--}}
-                                            {{--<th>Plataformas de apoyo</th>--}}
-                                            {{--<th>Observaciones</th>--}}
-                                            <th>Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr class="table-light">
-                                            <th>Fecha de subida</th>
-                                            <th>Módulo Formativo</th>
-                                            <th>Período Académico</th>
-                                            <th>Turno/Sección</th>
-                                            {{--<th>Unidad Didáctica</th>--}}
-                                            <th>Hora de ingreso</th>
-                                            <th>Hora de salida</th>
-                                            {{--<th>Tema de actividad de aprendizaje</th>--}}
-                                            {{--<th>Lugar</th>--}}
-                                            {{--<th>Plataformas de apoyo</th>--}}
-                                            {{--<th>Observaciones</th>--}}
-                                            <th></th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        {{--
-                                        @foreach($assistances as $assistance_teacher)
-                                        <tr>
-                                            <td><small>{{ date('Y/m/d h:i A', strtotime($assistance_teacher->created_at)) }}</small></td>
-                                            <td><small>{{ $assistance_teacher->training_module }}</small></td>
-                                            <td><small>{{ $assistance_teacher->period }}</small></td>
-                                            <td><small>{{ $assistance_teacher->turn }}</small></td>
-                                            <td><small>{{ $assistance_teacher->didactic_unit }}</small></td>
-                                            <td><small>{{ date('h:i A', strtotime($assistance_teacher->checkin_time)) }}</small></td>
-                                            <td><small>{{ date('h:i A', strtotime($assistance_teacher->departure_time)) }}</small></td>
-                                            <td><small>{{ $assistance_teacher->theme }}</small></td>
-                                            <td><small>{{ $assistance_teacher->place }}</small></td>
-                                            <td><small>{{ $assistance_teacher->educational_platforms }}</small></td>
-                                            <td><small>{{ $assistance_teacher->remarks }}</small></td>
-                                        </tr>
-                                        @endforeach
-                                        --}}
-                                    </tbody>
-                                </table>
-                            </div>
                 </div>
-              </div>
+
+
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    
+                    <div class="row justify-content-center align-items-center">
+
+                        <div class="col-sm-12 col-xl-4">
+                            <div class="form-group row mb-3">
+                                <div class="col-sm-3 col-form-label">
+                                    <input class="form-check-input" type="radio" name="export-option" id="by-rank" checked>
+                                    <label class="form-check-label"><b>Por rango</b></label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <!--<a href="#" id="ranks" class="btn btn-primary">.xlsx</a>-->
+                                        <input type="text" class="form-control" id="init-date" value="{{ date('Y-m-d', strtotime('-1 days')) }}" readonly>
+                                        <input type="text" class="form-control" id="end-date" value="{{ date('Y-m-d', time()) }}" readonly>
+                                        <!--<button type="button" id="export" class="btn btn-primary">Generar</button>-->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-3">
+                                <div class="col-sm-3 col-form-label">
+                                    <input class="form-check-input" type="radio" name="export-option" id="by-day" >
+                                    <label class="form-check-label"><b>Por día</b></label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <!--<a href="#" id="days" class="btn btn-primary disabled">.xlsx</a>-->
+                                        <input type="text" class="form-control" id="set-day" value="{{ date('Y-m-d', time()) }}" readonly disabled>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12 col-xl-4">
+
+                            <div class="form-group row mb-3">
+                                <div class="col-sm-3 col-form-label">
+                                    <input class="form-check-input" type="radio" name="export-option" id="by-month" >
+                                    <label class="form-check-label"><b>Por mes</b></label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <!--<a href="#" id="months" class="btn btn-primary disabled">.xlsx</a>-->
+                                        <input type="text" class="form-control" id="set-month" value="{{ date('Y-m', time()) }}" readonly disabled>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-3">
+                                <div class="col-sm-3 col-form-label">
+                                    <input class="form-check-input" type="radio" name="export-option" id="by-year" >
+                                    <label class="form-check-label"><b>Por año</b></label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <!--<a href="#" id="years" class="btn btn-primary disabled">.xlsx</a>-->
+                                        <input type="text" class="form-control" id="set-year" value="{{ date('Y', time()) }}" readonly disabled>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12 col-xl-8">
+
+                            <div class="form-group mb-3">
+                                <a href="#" id="export-excel" class="btn btn-primary">Exportar</a>
+                                <a href="{{ route('teacher.export', $teacher->id) }}" class="btn btn-primary">Exportar Todo</a>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
+
+
+
+          <div class="table-responsive">
+            <table class="table table-hover" id="datat">
+                <thead>
+                    <tr class="table-light">
+                        <!--<th></th>-->
+                        <th class="input-filter" id="uploaded-col">Fecha de subida</th>
+                        <th id="select-module">Módulo Formativo</th>
+                        <th id="select-period">Período Académico</th>
+                        <th id="select-turn">Turno/Sección</th>
+                        {{--<th>Unidad Didáctica</th>--}}
+                        <th class="input-filter" id="checkin-col">Hora de ingreso</th>
+                        <th class="input-filter" id="departure-col">Hora de salida</th>
+                        {{--<th>Tema de actividad de aprendizaje</th>--}}
+                        {{--<th>Lugar</th>--}}
+                        {{--<th>Plataformas de apoyo</th>--}}
+                        {{--<th>Observaciones</th>--}}
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr class="table-light">
+                        <th>Fecha de subida</th>
+                        <th>Módulo Formativo</th>
+                        <th>Período Académico</th>
+                        <th>Turno/Sección</th>
+                        {{--<th>Unidad Didáctica</th>--}}
+                        <th>Hora de ingreso</th>
+                        <th>Hora de salida</th>
+                        {{--<th>Tema de actividad de aprendizaje</th>--}}
+                        {{--<th>Lugar</th>--}}
+                        {{--<th>Plataformas de apoyo</th>--}}
+                        {{--<th>Observaciones</th>--}}
+                        <th></th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    {{--
+                    @foreach($assistances as $assistance_teacher)
+                    <tr>
+                        <td><small>{{ date('Y/m/d h:i A', strtotime($assistance_teacher->created_at)) }}</small></td>
+                        <td><small>{{ $assistance_teacher->training_module }}</small></td>
+                        <td><small>{{ $assistance_teacher->period }}</small></td>
+                        <td><small>{{ $assistance_teacher->turn }}</small></td>
+                        <td><small>{{ $assistance_teacher->didactic_unit }}</small></td>
+                        <td><small>{{ date('h:i A', strtotime($assistance_teacher->checkin_time)) }}</small></td>
+                        <td><small>{{ date('h:i A', strtotime($assistance_teacher->departure_time)) }}</small></td>
+                        <td><small>{{ $assistance_teacher->theme }}</small></td>
+                        <td><small>{{ $assistance_teacher->place }}</small></td>
+                        <td><small>{{ $assistance_teacher->educational_platforms }}</small></td>
+                        <td><small>{{ $assistance_teacher->remarks }}</small></td>
+                    </tr>
+                    @endforeach
+                    --}}
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
 
 </div>
 @endsection
@@ -411,6 +409,10 @@ $( document ).ready(function() {
                 confirmButtonText: "Si, eliminarlo",
                 denyButtonText: "No, cancelar",
                 icon: "warning",
+                customClass: {
+                    confirmButton: 'btn btn-primary',
+                    denyButton: 'btn btn-danger'
+                }
             }).then((result) => {
                 if(result.isConfirmed){
                     $('#deleteall').attr('action', $(this).attr('formaction'));
