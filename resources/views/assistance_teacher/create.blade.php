@@ -334,6 +334,16 @@ $( document ).ready(function() {
                             $('#checkin-time').val(response.checkin_time);
                             $('#departure-time').val(response.departure_time);
                             
+                            linked1.updateOptions({
+                                restrictions: {
+                                maxDate: response.departure_time,
+                                },
+                            });
+                            linked2.updateOptions({
+                                restrictions: {
+                                minDate: response.checkin_time,
+                                },
+                            });
                             /*linked1.dates.setDate(response.checkin_time);
                             document.getElementById('checkin-time').trigger(tempusDominus.Namespace.events.change);
                             linked2.dates.setDate(response.departure_time);
@@ -457,11 +467,6 @@ $( document ).ready(function() {
 
     /*new TomSelect("#teacher-id",{
         create: true,
-        //onChange : eventHandler('onChange'),
-        sortField: {
-            field: "text",
-            direction: "asc"
-        }
     });*/
 
     @if ($errors->any()) 

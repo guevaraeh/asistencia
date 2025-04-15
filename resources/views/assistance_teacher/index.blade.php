@@ -508,6 +508,12 @@ $( document ).ready(function() {
             var dep_date = moment(e.detail.date).add(6, 'hours').format('YYYY-MM-DD hh:mm A');
             $("#departure-filter").val(dep_date);
             dt.columns('#departure-col').search($("#departure-filter").val()).draw();
+            
+            checkin_filter.updateOptions({
+                restrictions: {
+                maxDate: $("#departure-filter").val(),
+                },
+            });
         }
     });
 
@@ -522,6 +528,12 @@ $( document ).ready(function() {
             var check_date = moment(e.date).subtract(6, 'hours').format('YYYY-MM-DD hh:mm A');
             $("#checkin-filter").val(check_date);
             dt.columns('#checkin-col').search($("#checkin-filter").val()).draw();
+
+            departure_filter.updateOptions({
+                restrictions: {
+                minDate: $("#checkin-filter").val(),
+                },
+            });
         }
     });
 
