@@ -4,6 +4,7 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\AssistanceTeacherController;
 use App\Http\Controllers\PeriodController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Gate;
@@ -54,8 +55,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/comments', [CommentController::class, 'index'])->name('comments');
 
-
     Route::get('/period', [PeriodController::class, 'index'])->name('period');
+
+
+    Route::get('/user', [UserController::class, 'index'])->name('user');
+    Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::put('/user/{user}/update', [UserController::class, 'update'])->name('user.update');
+    Route::get('/user/{user}/reset', [UserController::class, 'reset_password'])->name('user.reset_password');
+
 });
 
 require __DIR__.'/settings.php';

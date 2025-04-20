@@ -28,6 +28,9 @@
           </ul>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="{{ route('user') }}"><i class="bi-people"></i> Usuarios</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="{{ route('comments') }}"><i class="bi-book"></i> Comentarios</a>
         </li>
       </ul>
