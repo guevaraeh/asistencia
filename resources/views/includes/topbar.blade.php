@@ -42,7 +42,6 @@
         </form>
       </ul>
 
-      </ul>
     </div>
   </div>
 </nav>

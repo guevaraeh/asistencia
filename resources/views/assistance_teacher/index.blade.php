@@ -237,6 +237,7 @@ $( document ).ready(function() {
 /****************************************************************************************************************/
 
     var dt = $('#datat').DataTable({
+        responsive: true,
         //searching : false,
         lengthChange: false,
         pageLength: 20,
