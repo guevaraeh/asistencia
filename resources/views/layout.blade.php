@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @yield('title')
-
+    <link rel="shortcut icon" href="{{ asset('/i_icon.png') }}" />
     {{--@include('includes.libraries')--}}
     @include('includes.styles')
   </head>
