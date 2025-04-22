@@ -36,6 +36,14 @@ class UserController extends Controller
         $user->name = $request->input('name');
         //$user->lastname = $request->input('lastname');
         $user->email = $request->input('email');
+
+        /*if($user->is_admin)
+        {
+            if($request->input('password') == $request->input('repeat_password'))
+                $user->password = Hash::make($request->input('password'));
+            else back()->with('error', 'Fallo en edicion')
+        }*/
+
         $user->save();
 
         return redirect(route('user'))->with('success', 'Usuario editado');

@@ -64,6 +64,7 @@ class TeacherController extends Controller
         $teacher->lastname = $request->input('lastname');
         $teacher->email = $request->input('email');
         $teacher->phone = $request->input('phone');
+        $teacher->area = $request->input('area');
         $teacher->remember_token = Str::random(50);
         $teacher->save();
 
@@ -228,6 +229,7 @@ class TeacherController extends Controller
         $teacher->lastname = $request->input('lastname');
         $teacher->email = $request->input('email');
         $teacher->phone = $request->input('phone');
+        $teacher->area = $request->input('area');
         $teacher->save();
 
         return redirect(route('teacher'))->with('success', 'Profesor editado');

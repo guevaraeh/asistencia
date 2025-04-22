@@ -39,9 +39,16 @@
             </div>
 
             <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label"><b>Telefono</b><font color="red">*</font></label>
-              <input type="number" class="form-control" id="exampleLastName" name="phone" required>
+              <label for="exampleFormControlInput1" class="form-label"><b>Telefono</label>
+              <input type="number" class="form-control" id="exampleLastName" name="phone">
               @error('phone')
+                <div class="invalid-feedback">Muy largo.</div>
+              @enderror
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label"><b>Area</label>
+              <input type="text" class="form-control" id="exampleLastName" name="area">
+              @error('area')
                 <div class="invalid-feedback">Muy largo.</div>
               @enderror
             </div>
