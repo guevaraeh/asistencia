@@ -32,6 +32,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/teacher-submitted/{teacher}', [TeacherController::class, 'submitted'])->name('teacher.submitted');
     Route::delete('/teacher/{teacher}/destroy', [TeacherController::class, 'destroy'])->name('teacher.destroy');
 
+    Route::get('/teacher-import', function () {
+        return view('teacher.import');
+    })->name('import');
+    Route::post('/teacher-import', [TeacherController::class, 'import'])->name('teacher.import');
+
     Route::get('/assistanceteacher', [AssistanceTeacherController::class, 'index'])->name('assistance_teacher');
     Route::get('/assistanceteacher/create', [AssistanceTeacherController::class, 'create'])->name('assistance_teacher.create');
     Route::post('/assistanceteacher/confirm', [AssistanceTeacherController::class, 'confirm'])->name('assistance_teacher.confirm');

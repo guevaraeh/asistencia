@@ -12,6 +12,14 @@ class Teacher extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $fillable = [
+        'name',
+        'lastname',
+        'email',
+        'area',
+        'remember_token',
+    ];
+
     public function assistances(): HasMany
     {
         //return $this->hasMany(AssistanceTeacher::class)->orderBy('id', 'desc');

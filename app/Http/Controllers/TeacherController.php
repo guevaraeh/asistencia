@@ -12,6 +12,7 @@ use App\Http\Requests\StoreTeacherRequest;
 use App\Http\Requests\UpdateTeacherRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\TeacherExport;
+use App\Imports\TeachersImport;
 use DataTables;
 use Illuminate\Support\Facades\Gate;
 
@@ -52,8 +53,8 @@ class TeacherController extends Controller
         }
 
         $validated = $request->validate([
-            'name' => 'required|max:100',
-            'lastname' => 'required|max:100',
+            'name' => 'required|max:200',
+            'lastname' => 'required|max:200',
             'email' => 'required|email|max:100',
             'phone' => 'required|min:6|max:100',
         ]);
@@ -244,6 +245,22 @@ class TeacherController extends Controller
             abort(403);
 
         return view('teacher.submitted',['teacher' => $teacher]);
+    }
+
+    public function import(Request $request) 
+    {
+        if (!Gate::allows('manage-assistance'))
+            abort(403);
+
+        //dd($request->file('file-teachers'));
+
+        $request->validate([
+            'file-teachers' => 'required|max:8192',
+        ]);
+  
+        Excel::import(new TeachersImport, $request->file('file-teachers'));
+                 
+        return redirect(route('teacher'))->with('success', 'Docentes creados.');
     }
 
     public function export(Teacher $teacher) 

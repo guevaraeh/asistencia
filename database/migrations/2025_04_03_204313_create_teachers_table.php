@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('email', length: 100)->nullable();
             $table->string('phone', length: 50)->nullable();
+            $table->string('area', length: 50)->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
