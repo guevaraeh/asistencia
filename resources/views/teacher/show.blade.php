@@ -640,7 +640,6 @@ $( document ).ready(function() {
 
     var route = "{{ route('teacher.export_by_range', $teacher->id) }}"+"/";
     $("#export-excel").attr("href", route+$('#init-date').val()+"/"+$('#end-date').val());
-
     var route_date = "{{ route('teacher.export_by_date', $teacher->id) }}"+"/";
 
     const subday = day.subscribe(tempusDominus.Namespace.events.change, (e) => {

@@ -663,7 +663,6 @@ $( document ).ready(function() {
 
     var route = "{{ route('assistance_teacher.export_by_range') }}"+"/";
     $("#export-excel").attr("href", route+$('#init-date').val()+"/"+$('#end-date').val());
-
     var route_date = "{{ route('assistance_teacher.export_by_date') }}"+"/";
 
     const subday = day.subscribe(tempusDominus.Namespace.events.change, (e) => {

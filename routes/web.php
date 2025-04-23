@@ -66,6 +66,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/user', [UserController::class, 'index'])->name('user');
     Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
     Route::put('/user/{user}/update', [UserController::class, 'update'])->name('user.update');
+    Route::put('/user/{user}/update-password', [UserController::class, 'update_password'])->name('user.update_password');
     Route::get('/user/{user}/reset', [UserController::class, 'reset_password'])->name('user.reset_password');
 
 });

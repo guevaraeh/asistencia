@@ -3,11 +3,13 @@
 <script type="text/javascript" src="{{ asset('/moment/moment.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-<script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.js"></script>
-{{--<script src="https://cdn.datatables.net/responsive/3.0.4/js/dataTables.responsive.js"></script>
-<script src="https://cdn.datatables.net/responsive/3.0.4/js/responsive.dataTables.js"></script>--}}
+{{--<script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.js"></script>--}}
 
+<script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.js"></script>
+<script src="https://cdn.datatables.net/responsive/3.0.4/js/dataTables.responsive.js"></script>
+<script src="https://cdn.datatables.net/responsive/3.0.4/js/responsive.bootstrap5.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>

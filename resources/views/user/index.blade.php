@@ -60,6 +60,8 @@ $( document ).ready(function() {
     
     @if(Session::has('success'))
     toastr.success('<strong>¡Exito!</strong><br>'+'{{ session("success") }}');
+    @elif(Session::has('error'))
+    toastr.error('<strong>¡Error!</strong><br>'+'{{ session("error") }}');
     @endif
 
 });
