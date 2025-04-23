@@ -19,7 +19,6 @@
                                             <th>Creado</th>
                                             <th>Docente</th>
                                             <th>Comentario o sugerencia</th>
-                                            <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -28,7 +27,6 @@
                                             <td>{{ $comment->created_at }}</td>
                                             <td>{{ $comment->teacher->lastname . ' ' . $comment->teacher->name }}</td>
                                             <td>{{ $comment->text_comment }}</td>
-                                            <td></td>
                                         </tr>
                                         @endforeach
                                     </tbody>
@@ -45,6 +43,8 @@
 $( document ).ready(function() {
     
     $('#datat').DataTable({
+        lengthChange: false,
+        pageLength: 20,
         language: {
             url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'
         },

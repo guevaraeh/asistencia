@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Teacher;
 
 return new class extends Migration
 {
@@ -13,7 +14,8 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('teacher_id');
+            //$table->foreignId('teacher_id');
+            $table->foreignIdFor(Teacher::class)->constrained();
             $table->text('text_comment');
             $table->rememberToken();
             $table->timestamps();

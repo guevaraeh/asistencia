@@ -13,6 +13,6 @@ class AssistanceTeacherSeeder extends Seeder
      */
     public function run(): void
     {
-        AssistanceTeacher::factory(1000)->create();
+        AssistanceTeacher::factory(500)->create();
     }
 }
