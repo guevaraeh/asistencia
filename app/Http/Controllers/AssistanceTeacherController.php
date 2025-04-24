@@ -39,6 +39,9 @@ class AssistanceTeacherController extends Controller
                 //->join('periods', 'assistance_teachers.period_id', '=', 'period.id')
                 ->orderBy('assistance_teachers.id', 'desc');
             return DataTables::eloquent($assistance_teachers)
+                                ->editColumn('teacher_name', function(AssistanceTeacher $data) {
+                                    return '<a href="'.route('teacher.show',$data->teacher_id).'">'.$data->teacher_name.'</a>';
+                                })
                                 ->filterColumn('teacher_name', function($query, $keyword) {
                                     $sql = "CONCAT(teachers.lastname,' ',teachers.name) like ?";
                                     $query->whereRaw($sql, ["%{$keyword}%"]);
@@ -170,7 +173,7 @@ class AssistanceTeacherController extends Controller
                                     ';
                                     return $check;
                                 })*/
-                                ->rawColumns(['action','checks'])
+                                ->rawColumns(['teacher_name','action','checks'])
                                 ->make(true);
         }
         return view('assistance_teacher.index', ['periods' => Period::get()]);

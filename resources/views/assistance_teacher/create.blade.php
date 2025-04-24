@@ -141,7 +141,7 @@
               <div class="form-check">
                 <input class="form-check-input data-assistance" type="checkbox" name="educational-platforms[]" id="another-platform" value="">
                 <label class="form-check-label" for="flexCheckChecked">Otros</label>
-                <input type="text" class="form-control data-assistance" id="apf" disabled>
+                <input type="text" class="form-control data-assistance" id="apf" placeholder="No usar ' , '" disabled>
               </div>
             </div>
             </div>

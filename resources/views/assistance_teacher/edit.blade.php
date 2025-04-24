@@ -133,11 +133,11 @@
                 @if(array_diff($edplat, ['Moodle Institucional','Google Meet','Skipe']) != [] )
                 <input class="form-check-input" type="checkbox" name="educational-platforms[]" id="another-platform" value="{{ end($edplat) }}" checked>
                 <label class="form-check-label" for="flexCheckChecked">Otros</label>
-                <input type="text" class="form-control" id="apf" value="{{ end($edplat) }}" required>
+                <input type="text" class="form-control" id="apf" placeholder="No usar ' , '" value="{{ end($edplat) }}" required>
                 @else
                 <input class="form-check-input" type="checkbox" name="educational-platforms[]" id="another-platform" value="">
                 <label class="form-check-label" for="flexCheckChecked">Otros</label>
-                <input type="text" class="form-control" id="apf" disabled>
+                <input type="text" class="form-control" id="apf" placeholder="No usar ' , '" disabled>
                 @endif
               </div>
             </div>
@@ -201,93 +201,7 @@ $( document ).ready(function() {
         $("#another-platform").val($(this).val());
     });
 
-    /*$('.timepicker1').timepicker({
-        timeFormat: 'h:mm p',
-        interval: 15,
-        minTime: '8',
-        maxTime: '6:00 pm',
-        //defaultTime: '11',
-        //startTime: '10:00',
-        dynamic: false,
-        dropdown: true,
-        scrollbar: true
-    });*/
-
-    /*$('.timepicker1').datetimepicker({
-        language:'es',
-        format: "dd/mm/yyyy hh:ii A",
-        autoclose: true,
-        todayBtn: true,
-        startDate: "2013-02-14 10:00",
-        minuteStep: 10
-    });*/
-
-    /*$('.timepicker2').timepicker({
-        timeFormat: 'h:mm p',
-        interval: 15,
-        minTime: '10',
-        maxTime: '8:00 pm',
-        //defaultTime: '11',
-        //startTime: '10:00',
-        dynamic: false,
-        dropdown: true,
-        scrollbar: true
-    });*/
-
-
-
-    /*function generateAllowTimes() {
-        var hours = [];
-        var start = 5; 
-        var end = 23; 
-
-        for (var i = start; i <= end; i++) {
-            hours.push(i.toString().padStart(2, '0') + ':00');
-            hours.push(i.toString().padStart(2, '0') + ':15');
-            hours.push(i.toString().padStart(2, '0') + ':30');
-            hours.push(i.toString().padStart(2, '0') + ':45');
-        }
-        return hours;
-    }
-
-    $.datetimepicker.setLocale('es');
-
-    $('.timepicker1').datetimepicker({
-        //datepicker:false,
-        mask:true,
-        allowTimes: generateAllowTimes(),
-        timepicker: true,
-        format: 'Y-m-d H:i',
-        //format: 'Y-m-d h:i A',
-        utc: true,
-        onShow:function( ct )
-        {
-         this.setOptions({
-            maxDate: $('.timepicker2').val() ? $('.timepicker2').val() : false,
-            maxTime: $('.timepicker2').val() ? ( moment( $('.timepicker1').val(),'YYYY-MM-DD HH:mm').format('YYYY-MM-DD') == moment( $('.timepicker2').val(),'YYYY-MM-DD HH:mm').format('YYYY-MM-DD') ? moment($('.timepicker2').val(),'YYYY-MM-DD HH:mm').format('HH:mm') : false ) : false,
-         });
-          
-        },
-    });
-
-    $('.timepicker2').datetimepicker({
-        //datepicker:false,
-        mask:true,
-        allowTimes: generateAllowTimes(),
-        timepicker: true,
-        format: 'Y-m-d H:i',
-        //format: 'Y-m-d h:i A',
-        utc: true,
-        onShow:function( ct )
-        {
-         this.setOptions({
-            minDate: $('.timepicker1').val() ? $('.timepicker1').val() : false,
-            minTime: $('.timepicker1').val() ? ( moment($('.timepicker1').val(), 'YYYY-MM-DD HH:mm').format('YYYY-MM-DD') == moment($('.timepicker2').val(), 'YYYY-MM-DD HH:mm').format('YYYY-MM-DD') ? moment($('.timepicker1').val(), 'YYYY-MM-DD HH:mm').format('HH:mm') : false ) : false,
-         });
-
-        },
-    });*/
-
+/****************************************************************************************************************************************************/
 
     //https://preview.keenthemes.com/html/start-html-pro/docs/forms/tempus-dominus-datepicker
     const linkedPicker1Element = document.getElementById("checkin-time");
