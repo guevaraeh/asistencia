@@ -76,9 +76,10 @@ class TeacherController extends Controller
      */
     public function show(Teacher $teacher, Request $request)
     {
-        if (!Gate::allows('manage-assistance')) {
+        if (!Gate::allows('manage-assistance'))
             abort(403);
-        }
+
+        //SELECT TIMESTAMPDIFF(MINUTE, checkin_time, departure_time)/60 FROM `assistance_teachers` WHERE 1
 
         if($request->ajax())
         {
@@ -296,9 +297,8 @@ class TeacherController extends Controller
      */
     public function destroy(Teacher $teacher)
     {
-        if (!Gate::allows('manage-assistance')) {
+        if (!Gate::allows('manage-assistance'))
             abort(403);
-        }
 
         foreach ($teacher->assistances as $assistance)
             $assistance->delete();

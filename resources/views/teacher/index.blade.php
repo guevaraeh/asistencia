@@ -5,6 +5,12 @@
 @endsection
 
 @section('content')
+
+<form method="POST" id="deleteall">
+    @csrf
+    @method('DELETE')
+</form>
+
 <div class="container">
     <div class="col-lg-12">
       <div class="card shadow mb-4">
@@ -42,6 +48,8 @@
                                 <a href="{{ route('teacher.edit', $teacher->id) }}" class="btn btn-info btn-sm" title="Editar"><i class="bi-pencil"></i></a>
                                 <a href="{{ route('teacher.create_assistance', $teacher->id) }}" class="btn btn-secondary btn-sm" title="Crear Asistencia"><i class="bi-card-checklist"></i></a>
                                 <a href="{{ route('teacher.export', $teacher->id) }}" class="btn btn-warning btn-sm" title="Descargar Excel"><i class="bi-download"></i></a>
+
+                                <button type="button" class="btn btn-danger btn-sm swalDelete" form="deleteall" formaction="{{ route('teacher.destroy',$teacher->id) }}" value="{{ $teacher->lastname . ' ' . $teacher->name }}" title="Eliminar"><i class="bi-trash"></i></button>
                             </div>
                         </td>
                     </tr>
@@ -69,6 +77,26 @@ $( document ).ready(function() {
     @if(Session::has('success'))
     toastr.success('<strong>¡Exito!</strong><br>'+'{{ session("success") }}');
     @endif
+
+    $('.swalDelete').click(function(){
+        Swal.fire({
+            title: '¿Esta seguro que desea eliminar a '+$(this).val()+'?',
+            text: 'También eliminará todas sus asistencias registradas.',
+            showDenyButton: true,
+            confirmButtonText: "Si, eliminar",
+            denyButtonText: "No, cancelar",
+            icon: "warning",
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                denyButton: 'btn btn-danger'
+            }
+        }).then((result) => {
+            if(result.isConfirmed){
+                $('#deleteall').attr('action', $(this).attr('formaction'));
+                $('#deleteall').submit();
+            }
+        })
+    });
 
 });
 </script>

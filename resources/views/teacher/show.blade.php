@@ -23,6 +23,7 @@
                 <div class="nav nav-tabs mb-1" id="nav-tab" role="tablist">
                     <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Busqueda</button>
                     <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Exportar a Excel</button>
+                    <button class="nav-link" id="nav-action-tab" data-bs-toggle="tab" data-bs-target="#nav-action" type="button" role="tab" aria-controls="nav-action" aria-selected="false">Acciones</button>
                 </div>
             </nav>
 
@@ -158,6 +159,18 @@
 
                 </div>
 
+                <div class="tab-pane fade" id="nav-action" role="tabpanel" aria-labelledby="nav-action-tab">
+
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-sm-12">
+                            <a href="{{ route('teacher.edit', $teacher->id) }}" class="btn btn-info" title="Editar"><i class="bi-pencil"></i> Editar</a><br>
+                            <a href="{{ route('teacher.create_assistance', $teacher->id) }}" class="btn btn-secondary" title="Crear Asistencia"><i class="bi-card-checklist"></i> Crear Asistencia</a><br>
+                            <button type="button" class="btn btn-danger swalDelete" form="deleteall" formaction="{{ route('teacher.destroy',$teacher->id) }}" value="{{ $teacher->lastname . ' ' . $teacher->name }}" title="Eliminar"><i class="bi-trash"></i> Eliminar</button>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
 
 
@@ -240,6 +253,26 @@ $( document ).ready(function() {
                   clear: 'bi bi-trash',
                   close: 'bi bi-x',
                 };
+
+    $('.swalDelete').click(function(){
+        Swal.fire({
+            title: '¿Esta seguro que desea eliminar a '+$(this).val()+'?',
+            text: 'También eliminará todas sus asistencias registradas.',
+            showDenyButton: true,
+            confirmButtonText: "Si, eliminar",
+            denyButtonText: "No, cancelar",
+            icon: "warning",
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                denyButton: 'btn btn-danger'
+            }
+        }).then((result) => {
+            if(result.isConfirmed){
+                $('#deleteall').attr('action', $(this).attr('formaction'));
+                $('#deleteall').submit();
+            }
+        })
+    });
 
 /****************************************************************************************************************/
 

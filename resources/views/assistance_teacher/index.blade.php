@@ -222,6 +222,22 @@
 <script>
 $( document ).ready(function() {
 
+/*
+var ajax_route = {{ route('assistance_teacher') }};
+var ajax_colums = [
+            {data:'created_at', name:'created_at'},
+            {data:'teacher_name', name:'teacher_name'},
+            {data:'training_module', name:'training_module'},
+            {data:'period', name:'period'},
+            {data:'turn', name:'turn'},
+            {data:'checkin_time', name:'checkin_time'},
+            {data:'departure_time', name:'departure_time'},
+            {data:'action', name:'action'},
+        ];
+var route = "{{ route('assistance_teacher.export_by_range') }}"+"/";
+var route_date = "{{ route('assistance_teacher.export_by_date') }}"+"/";
+*/
+
     var iconsDate = {
                   time: 'bi bi-clock',
                   date: 'bi bi-calendar',
