@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-<title>Editar Asistencia de {{ $assistance_teacher->teacher->lastname . ' ' . $assistance_teacher->teacher->name }}</title>
+Editar Asistencia de {{ $assistance_teacher->teacher->lastname . ' ' . $assistance_teacher->teacher->name }}
 @endsection
 
 @section('content')

@@ -25,7 +25,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
     const { data, setData, post, processing, errors, reset } = useForm<Required<LoginForm>>({
         username: '',
         password: '',
-        remember: false,
+        remember: true,
     });
 
     const submit: FormEventHandler = (e) => {
@@ -44,6 +44,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                     <div className="grid gap-2">
                         <Label htmlFor="username">Usuario</Label>
                         <Input
+                            className="form-control"
                             id="username"
                             type="text"
                             required
@@ -66,6 +67,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             )}*/}
                         </div>
                         <Input
+                            className="form-control"
                             id="password"
                             type="password"
                             required
@@ -91,9 +93,9 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                     </div>
                     */}
 
-                    <Button type="submit" className="mt-4 w-full" tabIndex={4} disabled={processing}>
+                    <Button type="submit" className="btn btn-primary mt-4 w-full" tabIndex={4} disabled={processing}>
                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                        Iniciar Sesion
+                        Iniciar Sesión
                     </Button>
                 </div>
 

@@ -36,6 +36,10 @@
       </ul>
       @endcan
       <ul class="navbar-nav ms-auto navbar-right">
+	@can('manage-assistance')
+	<a class="nav-link" href="{{ route('download_guide') }}"><i class="bi-download"></i> Manual</a>
+
+	@endcan
         <form id="nav-logout" action="{{ route('logout') }}" method="POST">
           @csrf
           <button type="submit" class="nav-link"><i class="bi-box-arrow-left"></i> Cerrar Sesión</button>

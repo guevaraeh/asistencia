@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    @yield('title')
+    {{--@yield('title')--}}
+    <title>Registro de Asistencias | @yield('title')</title>
     <link rel="shortcut icon" href="{{ asset('/i_icon.png') }}" />
     {{--@include('includes.libraries')--}}
     @include('includes.styles')

@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-<title>Registro de asistencias de {{ $teacher->name . ' ' . $teacher->lastname }}</title>
+Registro de asistencias de {{ $teacher->name . ' ' . $teacher->lastname }}
 @endsection
 
 @section('content')

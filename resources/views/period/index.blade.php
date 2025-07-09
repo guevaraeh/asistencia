@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-<title>Periodos</title>
+Periodos
 @endsection
 
 @section('content')

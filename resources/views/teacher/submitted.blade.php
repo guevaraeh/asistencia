@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-<title>Asistencia Registrada</title>
+Asistencia Registrada
 @endsection
 
 @section('content')

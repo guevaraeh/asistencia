@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-<title>Editar usuario</title>
+Editar usuario
 @endsection
 
 @section('content')
@@ -37,7 +37,6 @@
     </div>
   </div>
 
-  @if($user->is_admin)
   <div class="col-lg-12">
     <div class="card shadow mb-4">
       <div class="card-header py-3">
@@ -65,7 +64,6 @@
       </form>
     </div>
   </div>
-  @endif
 
 </div>
 @endsection

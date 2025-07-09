@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('assistance_teachers', function (Blueprint $table) {
             $table->id();
             //$table->foreignId('teacher_id')/*->constrained()*/;
-            $table->foreignIdFor(Teacher::class)->constrained();
+            $table->foreignIdFor(Teacher::class);
             $table->string('training_module', length: 100);
             $table->string('period', length: 100); //$table->foreignId('period_id');
             $table->string('turn', length: 50);

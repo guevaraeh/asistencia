@@ -19,3 +19,4 @@
 <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.bootstrap5.min.css" rel="stylesheet">--}}
 
 <link rel="stylesheet" href="{{ asset('/bootstrap-style/bootstrap-superhero.min.css') }}"> <!-- https://bootswatch.com/ -->
+<link rel="stylesheet" href="{{ asset('/css-custom/custom.css') }}">

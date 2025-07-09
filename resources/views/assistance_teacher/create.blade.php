@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-<title>Crear Asistencia</title>
+Crear Asistencia
 @endsection
 
 @section('content')

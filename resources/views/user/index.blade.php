@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-<title>Usuarios</title>
+Usuarios
 @endsection
 
 @section('content')

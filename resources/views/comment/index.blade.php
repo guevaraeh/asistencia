@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-<title>Comentarios y sugerencias</title>
+Comentarios y sugerencias
 @endsection
 
 @section('content')

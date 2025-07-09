@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-<title>Lista de Asistencias</title>
+Lista de Asistencias
 @endsection
 
 @section('content')
