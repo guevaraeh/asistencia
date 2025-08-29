@@ -20,3 +20,25 @@
 
 <link rel="stylesheet" href="{{ asset('/bootstrap-style/bootstrap-superhero.min.css') }}"> <!-- https://bootswatch.com/ -->
 <link rel="stylesheet" href="{{ asset('/css-custom/custom.css') }}">
+
+<style>
+.card.card-tabs .card-tools {
+  margin: .3rem .5rem;
+}
+
+.card-header > .card-tools {
+  float: right;
+  /*margin-right: -0.625rem;*/
+}
+
+/*.card-header > .card-tools .input-group,
+.card-header > .card-tools .nav,
+.card-header > .card-tools .pagination {
+  margin-bottom: -0.3rem;
+  margin-top: -0.3rem;
+}*/
+
+.card-header > .card-tools [data-toggle="tooltip"] {
+  position: relative;
+}
+</style>

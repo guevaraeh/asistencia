@@ -20,7 +20,7 @@ Registro de asistencias de {{ $teacher->name . ' ' . $teacher->lastname }}
         <div class="card-body">
 
             <nav>
-                <div class="nav nav-tabs mb-1" id="nav-tab" role="tablist">
+                <div class="nav nav-tabs nav-justified mb-1" id="nav-tab" role="tablist">
                     <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Busqueda</button>
                     <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Exportar a Excel</button>
                     <button class="nav-link" id="nav-action-tab" data-bs-toggle="tab" data-bs-target="#nav-action" type="button" role="tab" aria-controls="nav-action" aria-selected="false">Acciones</button>

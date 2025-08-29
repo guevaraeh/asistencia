@@ -14,8 +14,13 @@ Lista de profesores
 <div class="container">
     <div class="col-lg-12">
       <div class="card shadow mb-4">
-        <div class="card-header py-3">
+        <div class="card-header d-flex justify-content-between align-items-center py-3">
           <h5 class="card-title text-primary">Lista de Docentes</h5>
+			<div class="card-tools">
+            <a href="{{ route('teacher.create') }}" class="btn btn-sm btn-primary">
+                <i class="bi bi-plus-lg"></i> Crear Docente
+            </a>
+        	</div>
         </div>
         <div class="card-body">
           <div class="table-responsive">

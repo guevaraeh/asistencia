@@ -14,16 +14,25 @@ Lista de Asistencias
 <div class="container-fluid">
     <div class="col-lg-12">
       <div class="card shadow mb-4">
-        <div class="card-header py-3">
+        <div class="card-header d-flex justify-content-between align-items-center py-3">
           <h5 class="card-title text-primary">Lista de Asistencias</h5>
+			<div class="card-tools">
+            <a href="{{ route('assistance_teacher.create') }}" class="btn btn-sm btn-primary">
+                <i class="bi bi-plus-lg"></i> Crear Asistencia
+            </a>
+        	</div>
         </div>
 
         <div class="card-body">
 
             <nav>
-                <div class="nav nav-tabs mb-1" id="nav-tab" role="tablist">
-                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i class="bi bi-search"></i> Busqueda</button>
-                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="bi bi-download"></i> Exportar a Excel</button>
+                <div class="nav nav-tabs nav-justified mb-1" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">
+						<i class="bi bi-search"></i> Busqueda
+					</button>
+                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
+						<i class="bi bi-download"></i> Exportar a Excel
+					</button>
                 </div>
             </nav>
 
